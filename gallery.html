@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery — Olympus Zero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<style>
+.filter-bar { display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:2.5rem; }
+.f-btn { padding:0.42rem 1.1rem; border-radius:50px; font-size:0.82rem; font-weight:500; border:1px solid var(--border-subtle); color:var(--text-secondary); transition:var(--transition); background:transparent; cursor:pointer; }
+.f-btn.active,.f-btn:hover { background:var(--accent-violet-dim); border-color:var(--accent-violet); color:var(--accent-violet); }
+.gallery-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:1rem;
+}
+.g-item {
+  border-radius:var(--radius-sm); overflow:hidden;
+  aspect-ratio:4/3;
+  background:var(--bg-card); border:1px solid var(--border-subtle);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:0.5rem; cursor:pointer; position:relative;
+  transition:var(--transition);
+}
+.g-item:hover { transform:scale(1.025); border-color:var(--border); box-shadow:var(--shadow-glow); }
+.g-item i { font-size:2.2rem; color:var(--accent-violet); opacity:0.35; position:relative; z-index:1; }
+.g-item span { font-size:0.72rem; font-family:var(--font-mono); color:var(--text-muted); position:relative; z-index:1; }
+.g-item::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,var(--accent-violet-dim),var(--accent-gold-dim)); }
+.g-overlay {
+  position:absolute; inset:0; background:rgba(8,11,20,0.75);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:0.35rem; opacity:0; transition:opacity 0.25s;
+}
+.g-item:hover .g-overlay { opacity:1; }
+.g-overlay i { font-size:1.4rem; color:#fff; }
+.g-overlay p { font-size:0.78rem; color:rgba(255,255,255,0.75); font-family:var(--font-mono); }
+/* Masonry-ish: make some items taller */
+.g-item.tall { aspect-ratio:3/4; }
+.g-item.wide { grid-column:span 2; aspect-ratio:16/9; }
+/* Lightbox */
+#lightbox { position:fixed; inset:0; z-index:9990; background:rgba(0,0,0,0.92); backdrop-filter:blur(8px); display:none; align-items:center; justify-content:center; }
+#lightbox.show { display:flex; }
+.lb-inner { max-width:800px; width:90%; text-align:center; }
+.lb-img { width:100%; border-radius:var(--radius); background:var(--bg-card); border:1px solid var(--border-subtle); aspect-ratio:16/9; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:0.75rem; margin-bottom:1rem; }
+.lb-img i { font-size:4rem; color:var(--accent-violet); opacity:0.35; }
+.lb-title { font-family:var(--font-display); font-size:1.1rem; font-weight:700; color:#fff; }
+.lb-cat   { font-size:0.78rem; font-family:var(--font-mono); color:var(--accent-violet); letter-spacing:0.1em; margin-bottom:0.4rem; }
+.lb-close { position:absolute; top:1.5rem; right:1.5rem; width:42px; height:42px; border-radius:50%; background:var(--bg-card); border:1px solid var(--border-subtle); color:#fff; font-size:1rem; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:var(--transition); }
+.lb-close:hover { background:var(--accent-violet); border-color:var(--accent-violet); }
+@media(max-width:600px){ .g-item.wide{grid-column:span 1; aspect-ratio:4/3;} }
+</style>
+</head>
+<body>
+<div id="mini-loader"></div><div id="scroll-progress"></div>
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">Olympus Zero</a>
+  <ul class="nav-links">
+    <li><a href="index.html"        class="nav-link"><i class="fas fa-house"></i> Home</a></li>
+    <li><a href="about.html"        class="nav-link"><i class="fas fa-user"></i> About</a></li>
+    <li><a href="projects.html"     class="nav-link"><i class="fas fa-layer-group"></i> Projects</a></li>
+    <li><a href="achievements.html" class="nav-link"><i class="fas fa-trophy"></i> Achievements</a></li>
+    <li><a href="gallery.html"      class="nav-link"><i class="fas fa-images"></i> Gallery</a></li>
+    <li><a href="contact.html"      class="nav-link"><i class="fas fa-paper-plane"></i> Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="icon-btn" id="theme-toggle"><i class="fas fa-moon" id="theme-icon"></i></button>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div id="mobile-drawer">
+  <a href="index.html"        class="drawer-link"><i class="fas fa-house"></i> Home</a>
+  <a href="about.html"        class="drawer-link"><i class="fas fa-user"></i> About</a>
+  <a href="projects.html"     class="drawer-link"><i class="fas fa-layer-group"></i> Projects</a>
+  <a href="achievements.html" class="drawer-link"><i class="fas fa-trophy"></i> Achievements</a>
+  <a href="gallery.html"      class="drawer-link"><i class="fas fa-images"></i> Gallery</a>
+  <a href="contact.html"      class="drawer-link"><i class="fas fa-paper-plane"></i> Contact</a>
+</div>
+<div id="drawer-overlay"></div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <button class="lb-close" id="lb-close"><i class="fas fa-times"></i></button>
+  <div class="lb-inner">
+    <div class="lb-img"><i class="fas fa-image" id="lb-icon"></i><p style="font-size:0.75rem;font-family:var(--font-mono);color:rgba(255,255,255,0.4)">// Replace with real photo</p></div>
+    <div class="lb-cat" id="lb-cat">Category</div>
+    <div class="lb-title" id="lb-title">Photo Title</div>
+  </div>
+</div>
+
+<div id="page-wrapper">
+<div class="page-hero">
+  <div class="breadcrumb"><a href="index.html">Home</a><i class="fas fa-chevron-right"></i><span>Gallery</span></div>
+  <p class="page-hero-label">Captured Moments</p>
+  <h1 class="page-hero-title">Photo <span class="grad">Gallery</span></h1>
+  <p class="page-hero-sub">Snapshots from projects, campus life, competitions, and events.</p>
+</div>
+
+<section class="section">
+  <div class="filter-bar reveal">
+    <button class="f-btn active" data-filter="all">All</button>
+    <button class="f-btn" data-filter="projects">Projects</button>
+    <button class="f-btn" data-filter="campus">Campus Life</button>
+    <button class="f-btn" data-filter="competitions">Competitions</button>
+    <button class="f-btn" data-filter="events">Events</button>
+    <button class="f-btn" data-filter="fieldwork">Field Work</button>
+  </div>
+  <div class="gallery-grid">
+    <div class="g-item wide reveal"       data-cat="projects"      data-title="Urban Heat Island Field Survey" data-icon="fa-map-marked-alt"><i class="fas fa-map-marked-alt"></i><span>Projects · Field Survey</span><div class="g-overlay"><i class="fas fa-expand-alt"></i><p>Urban Heat Island Field Survey</p></div></div>
+    <div class="g-item reveal d1"         data-cat="campus"        data-title="University Campus — Main Hall" data-icon="fa-university"><i class="fas fa-university"></i><span>Campus Life</span><div class="g-overlay"><i class="fas fa-expand-alt"></i><p>University Campus</p></div></div>
+    <div class="g-item reveal d2"         data-cat="competitions"  data-title="National Science Olympiad 2023" data-icon="fa-trophy"><i class="fas fa-trophy"></i><span>Competitions</span><div class="g-overlay"><i class="fas fa-expand-alt"></i><p>National Science Olympiad 2023</p></div></div>
+    <div class="g-item tall reveal d3"    data-cat="events"        data-title="International Symposium Poster" data-icon="fa-calendar-alt"><i class="fas fa-calendar-alt"></i><span>Events</span><div class="g-overlay"><i class="fas fa-expand-alt"></i><p>International Symposium</p></div></div>
+    <div class="g-item reveal"            data-cat="fieldwork"     data-title="Water Quality Sampling" data-icon="fa-water"><i class="fas fa-water"></i><span>Field Work</span><div class="g-overlay"><i class="fas fa-expand-alt"></i><p>Water Quality Sampling</p></div></div>
+    <div class="g-item reveal d1"         data-cat="campus"        data-title="Research Lab Session" data-icon="fa-microscope"><i class="fas fa-microscope"></i><span>Campus Life · Lab</span><div class="g-overlay"><i class="fas fa-expand-alt"></i><p>Research Lab Session</p></div></div>
+    <div class="g-item wide reveal d2"    data-cat="events"        data-title="ASEAN Youth Exchange Program 2024" data-icon="fa-globe"><i class="fas fa-globe"></i><span>Events · Exchange Program</span><div class="g-overlay"><i class="fas fa-expand-alt"></i><p>ASEAN Youth Exchange 2024</p></div></div>
+    <div class="g-item reveal"            data-cat="competitions"  data-title="Award Ceremony — Silver Medal" data-icon="fa-medal"><i class="fas fa-medal"></i><span>Competitions</span><div class="g-overlay"><i class="fas fa-expand-alt"></i><p>Award Ceremony</p></div></div>
+    <div class="g-item reveal d1"         data-cat="projects"      data-title="Dashboard Demo Presentation" data-icon="fa-database"><i class="fas fa-database"></i><span>Projects · Demo</span><div class="g-overlay"><i class="fas fa-expand-alt"></i><p>Dashboard Demo</p></div></div>
+    <div class="g-item tall reveal d2"    data-cat="campus"        data-title="Student Organization Meeting" data-icon="fa-users"><i class="fas fa-users"></i><span>Campus · Organization</span><div class="g-overlay"><i class="fas fa-expand-alt"></i><p>Student Organization</p></div></div>
+    <div class="g-item reveal d3"         data-cat="fieldwork"     data-title="Drone Survey — Deforestation Study" data-icon="fa-satellite"><i class="fas fa-satellite"></i><span>Field Work · Drone</span><div class="g-overlay"><i class="fas fa-expand-alt"></i><p>Drone Survey</p></div></div>
+    <div class="g-item reveal"            data-cat="events"        data-title="Conference Presentation" data-icon="fa-microphone"><i class="fas fa-microphone"></i><span>Events · Conference</span><div class="g-overlay"><i class="fas fa-expand-alt"></i><p>Conference Presentation</p></div></div>
+  </div>
+</section>
+
+<footer id="footer">
+  <div class="footer-grid">
+    <div><div class="footer-logo">Olympus Zero</div><div class="footer-copy">© 2024 · All rights reserved</div></div>
+    <nav class="footer-nav"><a href="index.html">Home</a><a href="about.html">About</a><a href="projects.html">Projects</a><a href="achievements.html">Achievements</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a></nav>
+    <div class="footer-socials"><a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a><a href="#" class="social-icon"><i class="fab fa-github"></i></a><a href="#" class="social-icon"><i class="fab fa-instagram"></i></a><a href="contact.html" class="social-icon"><i class="fas fa-envelope"></i></a></div>
+  </div>
+</footer>
+</div>
+<button id="back-top"><i class="fas fa-arrow-up"></i></button>
+<div id="toast"></div>
+<script src="js/script.js"></script>
+<script>
+// Filter
+document.querySelectorAll('.f-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    document.querySelectorAll('.g-item').forEach(item => {
+      item.style.display = (f === 'all' || item.dataset.cat === f) ? '' : 'none';
+    });
+  });
+});
+// Lightbox
+const lb = document.getElementById('lightbox');
+document.querySelectorAll('.g-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.getElementById('lb-title').textContent = item.dataset.title || 'Photo';
+    document.getElementById('lb-cat').textContent = item.dataset.cat || '';
+    document.getElementById('lb-icon').className = 'fas ' + (item.dataset.icon || 'fa-image');
+    lb.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  });
+});
+document.getElementById('lb-close').addEventListener('click', () => {
+  lb.classList.remove('show');
+  document.body.style.overflow = '';
+});
+lb.addEventListener('click', e => { if(e.target === lb){ lb.classList.remove('show'); document.body.style.overflow=''; } });
+document.addEventListener('keydown', e => { if(e.key==='Escape'){ lb.classList.remove('show'); document.body.style.overflow=''; } });
+</script>
+</body>
+</html>

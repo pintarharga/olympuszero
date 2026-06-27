@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Olympus Zero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<style>
+.about-main-grid { display:grid; grid-template-columns:320px 1fr; gap:4rem; align-items:start; }
+.profile-card {
+  background:var(--bg-card); border:1px solid var(--border-subtle);
+  border-radius:var(--radius); overflow:hidden; position:sticky; top:90px;
+}
+.profile-photo { height:300px; background:linear-gradient(160deg,var(--bg-secondary),var(--bg-card)); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.6rem; position:relative; }
+.profile-photo::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 50% 40%,var(--accent-violet-dim),transparent 70%); }
+.profile-photo i { font-size:5rem; color:var(--accent-violet); opacity:0.3; position:relative; z-index:1; }
+.profile-photo p { font-size:0.72rem; font-family:var(--font-mono); color:var(--text-muted); letter-spacing:0.1em; position:relative; z-index:1; }
+.profile-info { padding:1.5rem; }
+.profile-name { font-family:var(--font-display); font-size:1.3rem; font-weight:700; margin-bottom:0.2rem; }
+.profile-role { font-size:0.85rem; color:var(--text-secondary); margin-bottom:1rem; }
+.profile-meta { display:flex; flex-direction:column; gap:0.55rem; margin-bottom:1.25rem; }
+.profile-meta-item { display:flex; align-items:center; gap:0.6rem; font-size:0.82rem; color:var(--text-secondary); }
+.profile-meta-item i { color:var(--accent-violet); width:14px; text-align:center; }
+.profile-socials { display:flex; gap:0.5rem; }
+.about-content { display:flex; flex-direction:column; gap:3rem; }
+.about-block { background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:var(--radius); padding:2rem; position:relative; }
+.about-block::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--accent-violet),var(--accent-gold)); border-radius:var(--radius) var(--radius) 0 0; }
+.about-block h3 { font-family:var(--font-display); font-size:1.1rem; font-weight:700; margin-bottom:1rem; display:flex; align-items:center; gap:0.6rem; }
+.about-block h3 i { color:var(--accent-violet); font-size:0.9rem; }
+.about-block p { font-size:0.95rem; color:var(--text-secondary); line-height:1.85; }
+.about-block p + p { margin-top:0.85rem; }
+.chips { display:flex; flex-wrap:wrap; gap:0.45rem; margin-top:0.85rem; }
+.chip { padding:0.3rem 0.85rem; border-radius:50px; font-size:0.78rem; background:var(--accent-violet-dim); border:1px solid var(--border); color:var(--accent-violet); }
+/* Timeline */
+.tl-full { position:relative; padding-left:2.5rem; }
+.tl-full::before { content:''; position:absolute; left:10px; top:0; bottom:0; width:1px; background:linear-gradient(to bottom,var(--accent-violet),var(--accent-gold)); }
+.tl-full-item { position:relative; margin-bottom:2rem; }
+.tl-full-item::before { content:''; position:absolute; left:-2.1rem; top:0.35rem; width:12px; height:12px; border-radius:50%; background:var(--accent-violet); border:2px solid var(--bg-primary); box-shadow:0 0 10px var(--accent-violet-glow); }
+.tl-full-year { font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.15em; color:var(--accent-gold); margin-bottom:0.25rem; }
+.tl-full-title { font-family:var(--font-display); font-size:1rem; font-weight:700; margin-bottom:0.3rem; }
+.tl-full-desc { font-size:0.88rem; color:var(--text-secondary); line-height:1.7; }
+.tl-img-slot { margin-top:0.75rem; height:80px; border-radius:var(--radius-sm); cursor:pointer; }
+/* Skills section */
+.skills-two { display:grid; grid-template-columns:1fr 1fr; gap:2rem; }
+.skill-group-title { font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent-violet); margin-bottom:1.25rem; }
+@media(max-width:900px){
+  .about-main-grid { grid-template-columns:1fr; }
+  .profile-card { position:static; }
+  .skills-two { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+<div id="mini-loader"></div>
+<div id="scroll-progress"></div>
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">Olympus Zero</a>
+  <ul class="nav-links">
+    <li><a href="index.html"        class="nav-link"><i class="fas fa-house"></i> Home</a></li>
+    <li><a href="about.html"        class="nav-link"><i class="fas fa-user"></i> About</a></li>
+    <li><a href="projects.html"     class="nav-link"><i class="fas fa-layer-group"></i> Projects</a></li>
+    <li><a href="achievements.html" class="nav-link"><i class="fas fa-trophy"></i> Achievements</a></li>
+    <li><a href="gallery.html"      class="nav-link"><i class="fas fa-images"></i> Gallery</a></li>
+    <li><a href="contact.html"      class="nav-link"><i class="fas fa-paper-plane"></i> Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="icon-btn" id="theme-toggle"><i class="fas fa-moon" id="theme-icon"></i></button>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div id="mobile-drawer">
+  <a href="index.html"        class="drawer-link"><i class="fas fa-house"></i> Home</a>
+  <a href="about.html"        class="drawer-link"><i class="fas fa-user"></i> About</a>
+  <a href="projects.html"     class="drawer-link"><i class="fas fa-layer-group"></i> Projects</a>
+  <a href="achievements.html" class="drawer-link"><i class="fas fa-trophy"></i> Achievements</a>
+  <a href="gallery.html"      class="drawer-link"><i class="fas fa-images"></i> Gallery</a>
+  <a href="contact.html"      class="drawer-link"><i class="fas fa-paper-plane"></i> Contact</a>
+</div>
+<div id="drawer-overlay"></div>
+
+<div id="page-wrapper">
+<div class="page-hero">
+  <div class="breadcrumb"><a href="index.html">Home</a><i class="fas fa-chevron-right"></i><span>About</span></div>
+  <p class="page-hero-label">Get to Know Me</p>
+  <h1 class="page-hero-title">About <span class="grad">Me</span></h1>
+  <p class="page-hero-sub">My story, values, journey, and the skills I've built along the way.</p>
+</div>
+
+<section class="section">
+  <div class="about-main-grid">
+    <!-- Profile Card -->
+    <div class="profile-card reveal">
+      <div class="profile-photo"><i class="fas fa-user"></i><p>// Add Your Photo</p></div>
+      <div class="profile-info">
+        <div class="profile-name">Your Name</div>
+        <div class="profile-role">University Student · Researcher</div>
+        <div class="profile-meta">
+          <div class="profile-meta-item"><i class="fas fa-university"></i> University Name</div>
+          <div class="profile-meta-item"><i class="fas fa-book"></i> Major / Department</div>
+          <div class="profile-meta-item"><i class="fas fa-map-marker-alt"></i> City, Country</div>
+          <div class="profile-meta-item"><i class="fas fa-calendar"></i> Class of 202X</div>
+          <div class="profile-meta-item"><i class="fas fa-star" style="color:var(--accent-gold)"></i> GPA: X.XX / 4.00</div>
+        </div>
+        <div class="profile-socials">
+          <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+          <a href="contact.html" class="social-icon"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+    </div>
+    <!-- Content -->
+    <div class="about-content">
+      <div class="about-block reveal d1">
+        <h3><i class="fas fa-user-circle"></i> Personal Background</h3>
+        <p>I am a dedicated university student with a deep passion for research, technology, and making meaningful contributions to society. Growing up, I was always drawn to understanding how things work — from natural systems to human behavior — which naturally guided me toward an academic path rooted in inquiry and discovery.</p>
+        <p>My academic journey has shaped me into a critical thinker who approaches complex problems with both creativity and scientific rigor. I believe that the most impactful solutions emerge at the intersection of disciplines, which is why I actively seek opportunities that challenge me to think beyond my core field.</p>
+      </div>
+
+      <div class="about-block reveal d2">
+        <h3><i class="fas fa-compass"></i> Academic Interests</h3>
+        <p>My interests span across geospatial analysis, data science, environmental studies, and interdisciplinary research. I am particularly drawn to how technology — especially remote sensing, machine learning, and spatial data infrastructure — can be leveraged to solve real-world challenges at scale.</p>
+        <div class="chips">
+          <span class="chip">GIS & Spatial Analysis</span><span class="chip">Remote Sensing</span>
+          <span class="chip">Data Science</span><span class="chip">Environmental Studies</span>
+          <span class="chip">Machine Learning</span><span class="chip">Sustainability</span>
+        </div>
+      </div>
+
+      <div class="about-block reveal">
+        <h3><i class="fas fa-heart"></i> Personal Values</h3>
+        <p>My work and decisions are guided by a core set of values that I hold deeply. I believe in pursuing excellence not for recognition, but because the quality of our work reflects our respect for the problems we choose to solve.</p>
+        <div class="chips">
+          <span class="chip">Curiosity</span><span class="chip">Integrity</span><span class="chip">Collaboration</span>
+          <span class="chip">Growth Mindset</span><span class="chip">Impact-Driven</span><span class="chip">Excellence</span><span class="chip">Empathy</span>
+        </div>
+      </div>
+
+      <div class="about-block reveal">
+        <h3><i class="fas fa-rocket"></i> Career Aspirations</h3>
+        <p>I aspire to become a researcher and innovator who bridges the gap between academia and real-world application. My long-term vision is to contribute to sustainable development through evidence-based research, advance scientific knowledge in geospatial and environmental domains, and eventually mentor the next generation of researchers.</p>
+        <p>I am actively seeking internships, research collaborations, and academic partnerships that align with these goals.</p>
+      </div>
+
+      <!-- Full Timeline -->
+      <div class="about-block reveal">
+        <h3><i class="fas fa-route"></i> Life Journey</h3>
+        <div class="tl-full" style="margin-top:1.5rem;">
+          <div class="tl-full-item">
+            <div class="tl-full-year">Early Years</div>
+            <div class="tl-full-title">Childhood & Early Formation</div>
+            <p class="tl-full-desc">Born and raised with a deep sense of wonder about the world. Early years were filled with books, nature explorations, and the first sparks of curiosity that would define my path.</p>
+            <div class="tl-img-slot img-placeholder"><i class="fas fa-image" style="font-size:1.2rem;"></i><span>Add Childhood Photo</span></div>
+          </div>
+          <div class="tl-full-item">
+            <div class="tl-full-year">2010 – 2016</div>
+            <div class="tl-full-title">Elementary School</div>
+            <p class="tl-full-desc">Discovered a love for science and mathematics. Participated in first academic competitions, developing foundational skills in problem-solving and teamwork that would carry through my entire career.</p>
+            <div class="tl-img-slot img-placeholder"><i class="fas fa-image" style="font-size:1.2rem;"></i><span>Add Elementary Photo</span></div>
+          </div>
+          <div class="tl-full-item">
+            <div class="tl-full-year">2016 – 2019</div>
+            <div class="tl-full-title">Junior High School</div>
+            <p class="tl-full-desc">Began exploring technology and research methodologies. Won first regional competition and discovered a passion for geography and environmental science that would later become my academic focus.</p>
+            <div class="tl-img-slot img-placeholder"><i class="fas fa-image" style="font-size:1.2rem;"></i><span>Add Junior High Photo</span></div>
+          </div>
+          <div class="tl-full-item">
+            <div class="tl-full-year">2019 – 2022</div>
+            <div class="tl-full-title">Senior High School</div>
+            <p class="tl-full-desc">Blossomed academically and personally. Led student organizations, conducted independent research projects, published first paper in school journal, and earned multiple regional and national recognitions.</p>
+            <div class="tl-img-slot img-placeholder"><i class="fas fa-image" style="font-size:1.2rem;"></i><span>Add Senior High Photo</span></div>
+          </div>
+          <div class="tl-full-item" style="--accent-violet:var(--accent-gold);">
+            <div class="tl-full-year" >2022 – Present</div>
+            <div class="tl-full-title">University — Current Chapter</div>
+            <p class="tl-full-desc">Currently pursuing higher education with full dedication. Engaged in research labs, international academic collaborations, national competitions, and building a comprehensive portfolio of impactful projects that blend technology with environmental problem-solving.</p>
+            <div class="tl-img-slot img-placeholder"><i class="fas fa-image" style="font-size:1.2rem;"></i><span>Add University Photo</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div class="about-block reveal">
+        <h3><i class="fas fa-chart-bar"></i> Skills Dashboard</h3>
+        <div class="skills-two" style="margin-top:1.5rem;">
+          <div>
+            <div class="skill-group-title">Technical Skills</div>
+            <div class="skill-row"><div class="skill-meta"><span class="skill-name">GIS & Spatial Analysis</span><span class="skill-pct">90%</span></div><div class="skill-track"><div class="skill-fill" data-pct="90"></div></div></div>
+            <div class="skill-row"><div class="skill-meta"><span class="skill-name">Remote Sensing</span><span class="skill-pct">85%</span></div><div class="skill-track"><div class="skill-fill" data-pct="85"></div></div></div>
+            <div class="skill-row"><div class="skill-meta"><span class="skill-name">Python Programming</span><span class="skill-pct">80%</span></div><div class="skill-track"><div class="skill-fill" data-pct="80"></div></div></div>
+            <div class="skill-row"><div class="skill-meta"><span class="skill-name">Data Analysis (R)</span><span class="skill-pct">75%</span></div><div class="skill-track"><div class="skill-fill" data-pct="75"></div></div></div>
+          </div>
+          <div>
+            <div class="skill-group-title">Research & Soft Skills</div>
+            <div class="skill-row"><div class="skill-meta"><span class="skill-name">Research Methodology</span><span class="skill-pct">88%</span></div><div class="skill-track"><div class="skill-fill" data-pct="88"></div></div></div>
+            <div class="skill-row"><div class="skill-meta"><span class="skill-name">Academic Writing</span><span class="skill-pct">87%</span></div><div class="skill-track"><div class="skill-fill" data-pct="87"></div></div></div>
+            <div class="skill-row"><div class="skill-meta"><span class="skill-name">Public Speaking</span><span class="skill-pct">78%</span></div><div class="skill-track"><div class="skill-fill" data-pct="78"></div></div></div>
+            <div class="skill-row"><div class="skill-meta"><span class="skill-name">Leadership</span><span class="skill-pct">82%</span></div><div class="skill-track"><div class="skill-fill" data-pct="82"></div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal" style="display:flex;gap:1rem;flex-wrap:wrap;">
+        <a href="projects.html"     class="btn btn-primary"><i class="fas fa-layer-group"></i> See My Projects</a>
+        <a href="achievements.html" class="btn btn-outline"><i class="fas fa-trophy"></i> View Achievements</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="footer">
+  <div class="footer-grid">
+    <div><div class="footer-logo">Olympus Zero</div><div class="footer-copy">© 2024 · All rights reserved</div></div>
+    <nav class="footer-nav">
+      <a href="index.html">Home</a><a href="about.html">About</a>
+      <a href="projects.html">Projects</a><a href="achievements.html">Achievements</a>
+      <a href="gallery.html">Gallery</a><a href="contact.html">Contact</a>
+    </nav>
+    <div class="footer-socials">
+      <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+      <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+      <a href="contact.html" class="social-icon"><i class="fas fa-envelope"></i></a>
+    </div>
+  </div>
+</footer>
+</div>
+<button id="back-top"><i class="fas fa-arrow-up"></i></button>
+<div id="toast"></div>
+<script src="js/script.js"></script>
+</body>
+</html>

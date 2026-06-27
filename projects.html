@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects — Olympus Zero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<style>
+.filter-bar { display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:2.5rem; }
+.f-btn { padding:0.42rem 1.1rem; border-radius:50px; font-size:0.82rem; font-weight:500; border:1px solid var(--border-subtle); color:var(--text-secondary); transition:var(--transition); background:transparent; }
+.f-btn.active,.f-btn:hover { background:var(--accent-violet-dim); border-color:var(--accent-violet); color:var(--accent-violet); }
+.proj-card { border-radius:var(--radius); overflow:hidden; }
+.proj-thumb { height:200px; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; background:linear-gradient(135deg,var(--bg-secondary),var(--bg-card)); }
+.proj-thumb::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,var(--accent-violet-dim),var(--accent-gold-dim)); }
+.proj-thumb i { font-size:3rem; color:var(--accent-violet); opacity:0.45; position:relative; z-index:1; }
+.proj-badge { position:absolute; top:0.9rem; right:0.9rem; background:linear-gradient(135deg,var(--accent-violet),#8B5CF6); color:#fff; padding:0.22rem 0.75rem; border-radius:50px; font-size:0.7rem; font-weight:600; z-index:2; }
+.proj-body { padding:1.5rem; }
+.proj-title { font-family:var(--font-display); font-size:1.05rem; font-weight:700; margin-bottom:0.4rem; }
+.proj-desc  { font-size:0.87rem; color:var(--text-secondary); line-height:1.7; margin-bottom:0.9rem; }
+.proj-tags  { display:flex; flex-wrap:wrap; gap:0.35rem; margin-bottom:1rem; }
+.proj-impact { font-size:0.8rem; color:var(--accent-gold); display:flex; align-items:center; gap:0.4rem; margin-bottom:1rem; }
+.proj-impact::before { content:'★'; font-size:0.68rem; }
+.proj-footer { display:flex; justify-content:space-between; align-items:center; }
+/* Research cards */
+.res-card { position:relative; overflow:hidden; }
+.res-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--accent-violet),var(--accent-gold)); }
+.res-type { font-size:0.7rem; font-family:var(--font-mono); letter-spacing:0.15em; text-transform:uppercase; color:var(--accent-violet); margin-bottom:0.65rem; }
+.res-title { font-family:var(--font-display); font-size:1rem; font-weight:700; line-height:1.4; margin-bottom:0.45rem; }
+.res-desc  { font-size:0.87rem; color:var(--text-secondary); line-height:1.7; }
+.res-meta  { display:flex; gap:1rem; margin-top:0.85rem; font-size:0.78rem; color:var(--text-muted); flex-wrap:wrap; }
+.res-meta span { display:flex; align-items:center; gap:0.3rem; }
+/* Blog */
+.blog-card { overflow:hidden; }
+.blog-img { height:160px; display:flex; align-items:center; justify-content:center; position:relative; background:linear-gradient(135deg,var(--bg-secondary),var(--bg-card)); }
+.blog-img::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,var(--accent-violet-dim),transparent); }
+.blog-img i { font-size:2.5rem; color:var(--accent-violet); opacity:0.4; position:relative; }
+.blog-body { padding:1.5rem; }
+.blog-cat   { font-size:0.7rem; font-family:var(--font-mono); color:var(--accent-violet); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:0.5rem; }
+.blog-title { font-family:var(--font-display); font-size:1rem; font-weight:700; line-height:1.4; margin-bottom:0.5rem; }
+.blog-exc   { font-size:0.85rem; color:var(--text-secondary); line-height:1.7; }
+.blog-meta  { display:flex; justify-content:space-between; align-items:center; margin-top:1rem; font-size:0.78rem; color:var(--text-muted); }
+.blog-meta a { color:var(--accent-violet); }
+</style>
+</head>
+<body>
+<div id="mini-loader"></div><div id="scroll-progress"></div>
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">Olympus Zero</a>
+  <ul class="nav-links">
+    <li><a href="index.html"        class="nav-link"><i class="fas fa-house"></i> Home</a></li>
+    <li><a href="about.html"        class="nav-link"><i class="fas fa-user"></i> About</a></li>
+    <li><a href="projects.html"     class="nav-link"><i class="fas fa-layer-group"></i> Projects</a></li>
+    <li><a href="achievements.html" class="nav-link"><i class="fas fa-trophy"></i> Achievements</a></li>
+    <li><a href="gallery.html"      class="nav-link"><i class="fas fa-images"></i> Gallery</a></li>
+    <li><a href="contact.html"      class="nav-link"><i class="fas fa-paper-plane"></i> Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="icon-btn" id="theme-toggle"><i class="fas fa-moon" id="theme-icon"></i></button>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div id="mobile-drawer">
+  <a href="index.html"        class="drawer-link"><i class="fas fa-house"></i> Home</a>
+  <a href="about.html"        class="drawer-link"><i class="fas fa-user"></i> About</a>
+  <a href="projects.html"     class="drawer-link"><i class="fas fa-layer-group"></i> Projects</a>
+  <a href="achievements.html" class="drawer-link"><i class="fas fa-trophy"></i> Achievements</a>
+  <a href="gallery.html"      class="drawer-link"><i class="fas fa-images"></i> Gallery</a>
+  <a href="contact.html"      class="drawer-link"><i class="fas fa-paper-plane"></i> Contact</a>
+</div>
+<div id="drawer-overlay"></div>
+
+<div id="page-wrapper">
+<div class="page-hero">
+  <div class="breadcrumb"><a href="index.html">Home</a><i class="fas fa-chevron-right"></i><span>Projects</span></div>
+  <p class="page-hero-label">What I've Built</p>
+  <h1 class="page-hero-title">Projects & <span class="grad">Research</span></h1>
+  <p class="page-hero-sub">Academic projects, research papers, publications, and blog reflections.</p>
+</div>
+
+<!-- ═══ ACADEMIC PROJECTS ═══ -->
+<section class="section">
+  <div class="section-header reveal">
+    <span class="section-label">Portfolio</span>
+    <h2 class="section-title">Academic <span class="grad">Projects</span></h2>
+    <div class="divider"></div>
+  </div>
+  <div class="filter-bar reveal">
+    <button class="f-btn active" data-filter="all">All</button>
+    <button class="f-btn" data-filter="gis">GIS & Mapping</button>
+    <button class="f-btn" data-filter="data">Data Science</button>
+    <button class="f-btn" data-filter="env">Environment</button>
+    <button class="f-btn" data-filter="research">Research</button>
+  </div>
+  <div class="grid-auto">
+    <div class="card proj-card reveal" data-cat="gis env">
+      <div class="proj-thumb"><i class="fas fa-map-marked-alt"></i><span class="proj-badge">🥇 Best Project</span></div>
+      <div class="proj-body">
+        <h3 class="proj-title">Urban Heat Island Mapping</h3>
+        <p class="proj-desc">Spatial analysis of urban heat distribution using satellite imagery and GIS to identify vulnerable zones for city climate planning.</p>
+        <div class="proj-tags"><span class="tag">GIS</span><span class="tag">Python</span><span class="tag">Remote Sensing</span><span class="tag">QGIS</span></div>
+        <p class="proj-impact">Published in regional environmental journal</p>
+        <div class="proj-footer"><a href="#" class="btn btn-outline btn-sm">View Details</a><a href="#" class="social-icon" style="width:32px;height:32px;"><i class="fab fa-github"></i></a></div>
+      </div>
+    </div>
+    <div class="card proj-card reveal d1" data-cat="data env">
+      <div class="proj-thumb" style="background:linear-gradient(135deg,#0D2240,#111827)"><i class="fas fa-database"></i><span class="proj-badge">Featured</span></div>
+      <div class="proj-body">
+        <h3 class="proj-title">Community Water Quality Dashboard</h3>
+        <p class="proj-desc">Real-time IoT monitoring system for rural water access points with a web dashboard for local government decision-making.</p>
+        <div class="proj-tags"><span class="tag">IoT</span><span class="tag">JavaScript</span><span class="tag">Data Viz</span></div>
+        <p class="proj-impact">Deployed in 3 villages, serving 2,000+ residents</p>
+        <div class="proj-footer"><a href="#" class="btn btn-outline btn-sm">View Details</a><a href="#" class="social-icon" style="width:32px;height:32px;"><i class="fab fa-github"></i></a></div>
+      </div>
+    </div>
+    <div class="card proj-card reveal d2" data-cat="data research env">
+      <div class="proj-thumb" style="background:linear-gradient(135deg,#1A0D30,#111827)"><i class="fas fa-chart-line"></i></div>
+      <div class="proj-body">
+        <h3 class="proj-title">Deforestation Trend Analysis</h3>
+        <p class="proj-desc">Longitudinal study analyzing forest cover change using multi-temporal satellite data, ML classification, and statistical modeling.</p>
+        <div class="proj-tags"><span class="tag">R</span><span class="tag">ML</span><span class="tag">QGIS</span><span class="tag">Statistics</span></div>
+        <p class="proj-impact">Presented at national environmental conference</p>
+        <div class="proj-footer"><a href="#" class="btn btn-outline btn-sm">View Details</a><a href="#" class="social-icon" style="width:32px;height:32px;"><i class="fab fa-github"></i></a></div>
+      </div>
+    </div>
+    <div class="card proj-card reveal d3" data-cat="gis data">
+      <div class="proj-thumb" style="background:linear-gradient(135deg,#0D1A2E,#111827)"><i class="fas fa-water"></i></div>
+      <div class="proj-body">
+        <h3 class="proj-title">ML Flood Risk Prediction</h3>
+        <p class="proj-desc">Current thesis: ensemble ML models for predicting flood-prone zones using historical hydrological and meteorological data.</p>
+        <div class="proj-tags"><span class="tag">Python</span><span class="tag">ML</span><span class="tag">GIS</span><span class="tag">Thesis</span></div>
+        <p class="proj-impact">Ongoing — Expected completion 2025</p>
+        <div class="proj-footer"><a href="#" class="btn btn-outline btn-sm">In Progress</a></div>
+      </div>
+    </div>
+    <div class="card proj-card reveal" data-cat="research">
+      <div class="proj-thumb" style="background:linear-gradient(135deg,#101A20,#111827)"><i class="fas fa-microscope"></i></div>
+      <div class="proj-body">
+        <h3 class="proj-title">Peri-Urban Land Use Study</h3>
+        <p class="proj-desc">Field survey combined with satellite data to quantify environmental degradation patterns in rapidly urbanizing fringe areas.</p>
+        <div class="proj-tags"><span class="tag">Field Survey</span><span class="tag">GIS</span><span class="tag">NDVI</span></div>
+        <p class="proj-impact">Contributed to local spatial planning policy</p>
+        <div class="proj-footer"><a href="#" class="btn btn-outline btn-sm">View Details</a></div>
+      </div>
+    </div>
+    <div class="card proj-card reveal d1" data-cat="data">
+      <div class="proj-thumb" style="background:linear-gradient(135deg,#1A1000,#111827)"><i class="fas fa-satellite-dish"></i></div>
+      <div class="proj-body">
+        <h3 class="proj-title">Citizen Science Air Quality App</h3>
+        <p class="proj-desc">Mobile + web platform aggregating crowd-sourced air quality measurements to supplement official monitoring stations.</p>
+        <div class="proj-tags"><span class="tag">React</span><span class="tag">Node.js</span><span class="tag">API</span></div>
+        <p class="proj-impact">500+ active contributors in pilot phase</p>
+        <div class="proj-footer"><a href="#" class="btn btn-outline btn-sm">View Details</a><a href="#" class="social-icon" style="width:32px;height:32px;"><i class="fab fa-github"></i></a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ RESEARCH & PUBLICATIONS ═══ -->
+<section class="section section-alt">
+  <div class="section-header reveal">
+    <span class="section-label">Academic Work</span>
+    <h2 class="section-title">Research & <span class="grad">Publications</span></h2>
+    <div class="divider"></div>
+  </div>
+  <div class="grid-2">
+    <div class="card card-pad res-card reveal">
+      <div class="res-type">📄 Scientific Paper</div>
+      <h3 class="res-title">Spatial Analysis of Land Use Change and Its Environmental Impact in Peri-Urban Areas</h3>
+      <p class="res-desc">Comprehensive study combining satellite imagery, field surveys, and statistical methods to quantify environmental degradation patterns in growing cities.</p>
+      <div class="res-meta"><span><i class="fas fa-calendar"></i> 2023</span><span><i class="fas fa-journal-whills"></i> Regional Journal</span><span style="color:var(--accent-gold)"><i class="fas fa-star"></i> Peer-reviewed</span></div>
+    </div>
+    <div class="card card-pad res-card reveal d1">
+      <div class="res-type">🏆 Competition</div>
+      <h3 class="res-title">National Science Olympiad — Geography Category</h3>
+      <p class="res-desc">Represented university at national level, presenting research on sustainable urban development strategies using geospatial decision support systems.</p>
+      <div class="res-meta"><span><i class="fas fa-calendar"></i> 2023</span><span style="color:var(--accent-gold)"><i class="fas fa-trophy"></i> Silver Medal</span></div>
+    </div>
+    <div class="card card-pad res-card reveal d2">
+      <div class="res-type">🎤 Conference</div>
+      <h3 class="res-title">International Symposium on Environmental Monitoring Technologies</h3>
+      <p class="res-desc">Poster presentation on novel approaches to integrating citizen science data with remote sensing products for improved environmental monitoring.</p>
+      <div class="res-meta"><span><i class="fas fa-calendar"></i> 2024</span><span><i class="fas fa-globe"></i> International</span></div>
+    </div>
+    <div class="card card-pad res-card reveal d3">
+      <div class="res-type">🔬 Ongoing Research</div>
+      <h3 class="res-title">Machine Learning Applications in Flood Risk Assessment</h3>
+      <p class="res-desc">Current thesis research exploring ensemble ML methods for predicting flood-prone zones using historical hydrological and meteorological data.</p>
+      <div class="res-meta"><span><i class="fas fa-calendar"></i> 2024–Present</span><span><i class="fas fa-spinner"></i> In Progress</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BLOG & REFLECTIONS ═══ -->
+<section class="section">
+  <div class="section-header reveal">
+    <span class="section-label">Reflections</span>
+    <h2 class="section-title">Blog & <span class="grad">Insights</span></h2>
+    <div class="divider"></div>
+  </div>
+  <div class="grid-3">
+    <div class="card blog-card reveal">
+      <div class="blog-img"><i class="fas fa-pen-fancy"></i></div>
+      <div class="blog-body">
+        <p class="blog-cat">Academic Reflection</p>
+        <h3 class="blog-title">What Research Taught Me About Patience and Precision</h3>
+        <p class="blog-exc">A personal reflection on conducting my first independent research — the setbacks, breakthroughs, and lessons learned.</p>
+        <div class="blog-meta"><span>June 2024</span><a href="#">Read more →</a></div>
+      </div>
+    </div>
+    <div class="card blog-card reveal d1">
+      <div class="blog-img" style="background:linear-gradient(135deg,#0D2240,#111827)"><i class="fas fa-map"></i></div>
+      <div class="blog-body">
+        <p class="blog-cat">Life Lesson</p>
+        <h3 class="blog-title">How Mapping the World Helped Me Understand Myself</h3>
+        <p class="blog-exc">GIS taught me more than cartography — it taught me to see systems, patterns, and connections not immediately visible on the surface.</p>
+        <div class="blog-meta"><span>April 2024</span><a href="#">Read more →</a></div>
+      </div>
+    </div>
+    <div class="card blog-card reveal d2">
+      <div class="blog-img" style="background:linear-gradient(135deg,#1A0D30,#111827)"><i class="fas fa-rocket"></i></div>
+      <div class="blog-body">
+        <p class="blog-cat">Personal Growth</p>
+        <h3 class="blog-title">Failing at a National Competition: My Biggest Teacher</h3>
+        <p class="blog-exc">I didn't win. But losing that competition was the most important thing that happened to my academic career. Here's why.</p>
+        <div class="blog-meta"><span>January 2024</span><a href="#">Read more →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="footer">
+  <div class="footer-grid">
+    <div><div class="footer-logo">Olympus Zero</div><div class="footer-copy">© 2024 · All rights reserved</div></div>
+    <nav class="footer-nav"><a href="index.html">Home</a><a href="about.html">About</a><a href="projects.html">Projects</a><a href="achievements.html">Achievements</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a></nav>
+    <div class="footer-socials"><a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a><a href="#" class="social-icon"><i class="fab fa-github"></i></a><a href="#" class="social-icon"><i class="fab fa-instagram"></i></a><a href="contact.html" class="social-icon"><i class="fas fa-envelope"></i></a></div>
+  </div>
+</footer>
+</div>
+<button id="back-top"><i class="fas fa-arrow-up"></i></button>
+<div id="toast"></div>
+<script src="js/script.js"></script>
+<script>
+document.querySelectorAll('.f-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    document.querySelectorAll('.proj-card').forEach(card => {
+      const cats = card.dataset.cat || '';
+      card.closest('.card').style.display = (f === 'all' || cats.includes(f)) ? '' : 'none';
+    });
+  });
+});
+</script>
+</body>
+</html>
