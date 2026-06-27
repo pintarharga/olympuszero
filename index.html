@@ -1,492 +1,1865 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Olympus Zero — Personal Portfolio. University student documenting academic journey, projects, and achievements.">
-<title>Olympus Zero — Home</title>
+<meta name="description" content="Mukhammad Ulil Albab — Food Technology Student at IPB University, Researcher, Innovator, Science Competition Champion.">
+<meta property="og:title" content="Mukhammad Ulil Albab — Research Portfolio">
+<meta property="og:description" content="Food Technology Student at IPB University. Researcher, Innovator, and National/International Science Competition Champion.">
+<title>Mukhammad Ulil Albab — Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="stylesheet" href="css/style.css">
 <style>
-/* ── HERO ── */
-#hero {
-  min-height: 100vh;
-  display: flex; align-items: center;
-  position: relative; overflow: hidden;
-  padding: 0 5%;
+/* ===== CSS VARIABLES ===== */
+:root {
+  --bg-primary: #0B0F14;
+  --bg-secondary: #0F1419;
+  --bg-card: #131B22;
+  --bg-card-hover: #1A2430;
+  --bg-elevated: #1C242C;
+  --emerald: #103C3A;
+  --emerald-light: #155250;
+  --emerald-dim: rgba(16,60,58,0.35);
+  --emerald-glow: rgba(16,60,58,0.5);
+  --gold: #D4A017;
+  --gold-dim: rgba(212,160,23,0.12);
+  --gold-glow: rgba(212,160,23,0.3);
+  --ivory: #F4EFE6;
+  --ivory-dim: rgba(244,239,230,0.07);
+  --text-primary: #F4EFE6;
+  --text-secondary: #8A9AB0;
+  --text-muted: #4A5568;
+  --border: rgba(212,160,23,0.2);
+  --border-subtle: rgba(244,239,230,0.07);
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow-card: 0 4px 32px rgba(0,0,0,0.5);
+  --shadow-glow: 0 0 48px rgba(212,160,23,0.12);
+  --transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
 }
-#c-canvas {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  pointer-events: none; z-index: 0;
+
+/* ===== RESET ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
 }
-.hero-inner {
-  position: relative; z-index: 1;
-  max-width: 680px;
-  padding-top: 90px; padding-bottom: 60px;
-}
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  background: var(--accent-violet-dim); border: 1px solid var(--border);
-  border-radius: 50px; padding: 0.38rem 1rem;
-  font-size: 0.75rem; font-family: var(--font-mono);
-  letter-spacing: 0.1em; color: var(--accent-violet);
-  margin-bottom: 1.5rem;
-}
-.hero-badge .dot {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: var(--accent-green);
-  animation: blink 2s infinite;
-}
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-.hero-name {
-  font-family: var(--font-display);
-  font-size: clamp(3rem, 8vw, 5.5rem);
-  font-weight: 700; line-height: 1.04;
-  letter-spacing: -0.04em; margin-bottom: 0.5rem;
-}
-.hero-uni {
-  display: flex; align-items: center; gap: 0.6rem;
-  font-size: 0.95rem; color: var(--text-secondary);
-  font-weight: 500; margin-bottom: 0.4rem;
-}
-.hero-uni::before { content:''; width:22px; height:1px; background:var(--accent-violet); flex-shrink:0; }
-.hero-tagline {
-  font-family: var(--font-display);
-  font-size: clamp(1.2rem, 2.5vw, 1.7rem);
-  font-weight: 300; color: var(--text-secondary);
-  line-height: 1.35; margin-bottom: 1.25rem;
-}
-.hero-intro {
-  font-size: 0.98rem; color: var(--text-secondary);
-  line-height: 1.82; max-width: 500px; margin-bottom: 2.5rem;
-}
-.hero-cta { display: flex; gap: 0.85rem; flex-wrap: wrap; margin-bottom: 3.5rem; }
-.hero-stats { display: flex; gap: 2.5rem; }
-.h-stat-num {
-  font-family: var(--font-display);
-  font-size: 2rem; font-weight: 700; line-height: 1;
-}
-.h-stat-label { font-size: 0.73rem; color: var(--text-muted); margin-top: 0.2rem; letter-spacing: 0.04em; }
-.hero-photo {
-  position: absolute; right: 5%; bottom: 0; z-index: 1;
-  width: clamp(240px, 26vw, 370px);
-  aspect-ratio: 3/4;
-  border-radius: var(--radius) var(--radius) 0 0;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle); border-bottom: none;
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+/* ===== LOADER ===== */
+#loader {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--bg-primary);
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  gap: 0.6rem; overflow: hidden;
+  gap: 2rem;
+  transition: opacity 0.8s, visibility 0.8s;
 }
-.hero-photo::after {
-  content:''; position:absolute; inset:0;
-  background: radial-gradient(circle at 50% 30%, var(--accent-violet-dim), transparent 70%);
+#loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.loader-wordmark {
+  font-family: var(--font-display);
+  font-size: 1.6rem; font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--ivory);
 }
-.hero-photo i { font-size: 4.5rem; color: var(--accent-violet); opacity: 0.35; position:relative; z-index:1; }
-.hero-photo p { font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-muted); letter-spacing: 0.1em; position:relative; z-index:1; }
-.scroll-hint {
-  position: absolute; bottom: 2rem; left: 5%; z-index: 1;
-  display: flex; align-items: center; gap: 0.6rem;
-  font-size: 0.72rem; font-family: var(--font-mono);
-  letter-spacing: 0.12em; color: var(--text-muted);
-  animation: float 3s ease-in-out infinite;
+.loader-wordmark span { color: var(--gold); font-style: italic; }
+.loader-ring {
+  width: 56px; height: 56px;
+  border: 1px solid var(--border-subtle);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 1.2s linear infinite;
 }
-@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+@keyframes spin { to { transform: rotate(360deg); } }
+.loader-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--text-muted);
+}
 
-/* ── ABOUT PREVIEW ── */
-.about-preview-grid {
+/* ===== SCROLL PROGRESS ===== */
+#scroll-progress {
+  position: fixed; top: 0; left: 0; z-index: 999;
+  height: 2px; width: 0;
+  background: linear-gradient(90deg, var(--emerald-light), var(--gold));
+  transition: width 0.1s;
+}
+
+/* ===== NAV ===== */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+  padding: 1.4rem 5%;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: var(--transition);
+}
+nav.scrolled {
+  background: rgba(11,15,20,0.9);
+  backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 0.9rem 5%;
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.15rem; font-weight: 700; font-style: italic;
+  color: var(--ivory); letter-spacing: 0.01em;
+}
+.nav-logo span { color: var(--gold); font-style: normal; }
+.nav-links {
+  display: flex; gap: 2.25rem; align-items: center;
+}
+.nav-links a {
+  font-size: 0.82rem; font-weight: 500; letter-spacing: 0.04em;
+  color: var(--text-secondary); transition: var(--transition);
+}
+.nav-links a:hover { color: var(--ivory); }
+.nav-cta {
+  padding: 0.5rem 1.4rem; border-radius: 50px;
+  font-size: 0.82rem; font-weight: 600;
+  border: 1px solid var(--border);
+  color: var(--gold);
+  transition: var(--transition);
+}
+.nav-cta:hover {
+  background: var(--gold-dim); border-color: var(--gold);
+}
+.hamburger {
+  display: none; flex-direction: column; gap: 5px; padding: 4px; cursor: pointer;
+}
+.hamburger span {
+  display: block; width: 22px; height: 1.5px;
+  background: var(--text-primary); border-radius: 2px; transition: var(--transition);
+}
+.hamburger.active span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+.mobile-menu {
+  display: none; position: fixed;
+  top: 0; right: -100%; width: 280px; height: 100vh;
+  background: var(--bg-elevated); z-index: 899;
+  padding: 6rem 2rem 2rem;
+  flex-direction: column; gap: 0.5rem;
+  transition: right 0.35s cubic-bezier(0.4,0,0.2,1);
+  border-left: 1px solid var(--border-subtle);
+}
+.mobile-menu.open { right: 0; display: flex; }
+.mobile-menu a {
+  font-size: 1rem; font-weight: 500; color: var(--text-secondary);
+  padding: 0.85rem 0; border-bottom: 1px solid var(--border-subtle);
+  transition: var(--transition);
+}
+.mobile-menu a:hover { color: var(--gold); }
+
+/* ===== BACK TO TOP ===== */
+#back-top {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 800;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--bg-card); border: 1px solid var(--border);
+  color: var(--gold); font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: var(--transition);
+}
+#back-top.visible { opacity: 1; pointer-events: auto; }
+#back-top:hover { background: var(--gold-dim); transform: translateY(-3px); }
+
+/* ===== SECTION BASE ===== */
+section { padding: 8rem 5%; }
+.section-eyebrow {
+  font-family: var(--font-mono); font-size: 0.68rem;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.section-eyebrow::before {
+  content: ''; display: block; width: 32px; height: 1px;
+  background: var(--gold); opacity: 0.6;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+  font-weight: 700; line-height: 1.1;
+  letter-spacing: -0.02em; margin-bottom: 1.25rem;
+}
+.section-subtitle {
+  font-size: 1.05rem; color: var(--text-secondary);
+  max-width: 560px; line-height: 1.8;
+}
+.section-header { margin-bottom: 5rem; }
+.text-gold {
+  background: linear-gradient(135deg, var(--gold), #E8BF60);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.text-emerald {
+  color: #2A8E8A;
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.8rem 1.9rem; border-radius: 50px;
+  font-size: 0.88rem; font-weight: 600; letter-spacing: 0.02em;
+  transition: var(--transition); white-space: nowrap;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--emerald-light), #1A6B68);
+  color: var(--ivory);
+  box-shadow: 0 4px 24px var(--emerald-glow);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 36px var(--emerald-glow);
+}
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold), #B8870F);
+  color: #0B0F14;
+  box-shadow: 0 4px 24px var(--gold-glow);
+}
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 36px var(--gold-glow);
+}
+.btn-outline {
+  border: 1px solid var(--border);
+  color: var(--text-primary); background: transparent;
+}
+.btn-outline:hover {
+  background: var(--gold-dim); border-color: var(--gold);
+  color: var(--gold); transform: translateY(-2px);
+}
+
+/* ===== CARD ===== */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  transition: var(--transition);
+}
+.card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-glow);
+}
+
+/* ===== REVEAL ===== */
+.reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.75s cubic-bezier(0.4,0,0.2,1), transform 0.75s cubic-bezier(0.4,0,0.2,1);
+}
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.reveal-d3 { transition-delay: 0.3s; }
+.reveal-d4 { transition-delay: 0.4s; }
+
+/* ===== PARTICLES CANVAS ===== */
+#particle-canvas {
+  position: absolute; inset: 0;
+  pointer-events: none; z-index: 0;
+}
+
+/* ===== HERO ===== */
+#hero {
+  min-height: 100vh; padding: 0 5%;
   display: grid; grid-template-columns: 1fr 1fr;
   gap: 4rem; align-items: center;
-}
-.about-photo-ph {
-  aspect-ratio: 4/5;
-  border-radius: var(--radius);
   position: relative; overflow: hidden;
+  padding-top: 7rem; padding-bottom: 4rem;
 }
-.about-photo-ph::before {
-  content:''; position:absolute; top:0; left:0; right:0; height:3px;
-  background: linear-gradient(90deg, var(--accent-violet), var(--accent-gold));
+.hero-bg-orb {
+  position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none;
 }
-.about-blocks { display: flex; flex-direction: column; gap: 1.75rem; }
-.ab-block h3 {
-  font-family: var(--font-mono); font-size: 0.7rem;
-  letter-spacing: 0.15em; text-transform: uppercase;
-  color: var(--accent-violet); margin-bottom: 0.5rem;
+.hero-bg-orb-1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(16,60,58,0.3) 0%, transparent 70%);
+  top: -100px; left: -100px;
 }
-.ab-block p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.8; }
-.value-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.6rem; }
-.chip {
-  padding: 0.28rem 0.85rem; border-radius: 50px;
-  font-size: 0.78rem;
-  background: var(--accent-violet-dim);
+.hero-bg-orb-2 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(212,160,23,0.1) 0%, transparent 70%);
+  bottom: -80px; right: 20%;
+}
+.hero-left { position: relative; z-index: 1; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  background: rgba(16,60,58,0.25);
+  border: 1px solid rgba(16,60,58,0.6);
+  border-radius: 50px; padding: 0.45rem 1.1rem;
+  font-size: 0.72rem; font-family: var(--font-mono);
+  letter-spacing: 0.14em; color: #2EC4B6;
+  margin-bottom: 1.75rem;
+}
+.hero-badge-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #2EC4B6;
+  animation: pulse 2.5s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.8)} }
+.hero-name {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 6vw, 4.8rem);
+  font-weight: 900; line-height: 1.05;
+  letter-spacing: -0.03em; margin-bottom: 0.6rem;
+  color: var(--ivory);
+}
+.hero-name em {
+  font-style: italic;
+  background: linear-gradient(135deg, var(--gold), #E8BF60);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero-university {
+  font-size: 0.9rem; color: var(--text-secondary);
+  font-weight: 500; letter-spacing: 0.06em;
+  display: flex; align-items: center; gap: 0.6rem;
+  margin-bottom: 0.6rem; text-transform: uppercase;
+}
+.hero-university i { color: var(--gold); font-size: 0.8rem; }
+.hero-roles {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  font-weight: 400; font-style: italic;
+  color: var(--text-secondary); margin-bottom: 1.75rem;
+}
+.hero-roles span { color: var(--gold); }
+.hero-desc {
+  font-size: 0.97rem; color: var(--text-secondary);
+  max-width: 480px; line-height: 1.85;
+  margin-bottom: 2.5rem;
+}
+.hero-actions { display: flex; gap: 0.875rem; flex-wrap: wrap; margin-bottom: 3.5rem; }
+.hero-stats {
+  display: flex; gap: 2rem; flex-wrap: wrap;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-subtle);
+}
+.hero-stat-num {
+  font-family: var(--font-display);
+  font-size: 2.2rem; font-weight: 900; line-height: 1;
+  background: linear-gradient(135deg, var(--gold), #E8BF60);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero-stat-label {
+  font-size: 0.72rem; color: var(--text-muted);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  margin-top: 0.25rem; font-family: var(--font-mono);
+}
+.hero-right {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
+}
+.hero-portrait-wrap {
+  position: relative; width: 100%; max-width: 420px;
+}
+.hero-portrait {
+  width: 100%; aspect-ratio: 3/4;
+  border-radius: 20px;
+  background: linear-gradient(160deg, var(--bg-elevated) 0%, var(--bg-card) 100%);
+  border: 1px solid var(--border-subtle);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 0.75rem; overflow: hidden; position: relative;
+}
+.hero-portrait::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 30%, rgba(16,60,58,0.3), transparent 70%);
+}
+.hero-portrait-icon { font-size: 6rem; color: var(--emerald-light); opacity: 0.3; }
+.hero-portrait-label {
+  font-size: 0.72rem; font-family: var(--font-mono);
+  letter-spacing: 0.14em; color: var(--text-muted); text-transform: uppercase;
+}
+.hero-portrait-border {
+  position: absolute; inset: -1px; border-radius: 21px;
+  background: linear-gradient(160deg, rgba(212,160,23,0.3), transparent 60%);
+  pointer-events: none;
+}
+.floating-badge {
+  position: absolute;
+  background: var(--bg-card);
   border: 1px solid var(--border);
-  color: var(--accent-violet);
+  border-radius: 12px; padding: 0.65rem 1rem;
+  font-size: 0.75rem; font-weight: 600;
+  display: flex; align-items: center; gap: 0.5rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  animation: floatBadge 4s ease-in-out infinite;
+}
+.floating-badge i { color: var(--gold); }
+.floating-badge-1 { top: 12%; left: -24px; animation-delay: 0s; }
+.floating-badge-2 { top: 38%; right: -20px; animation-delay: 1.5s; }
+.floating-badge-3 { bottom: 20%; left: -16px; animation-delay: 3s; }
+@keyframes floatBadge { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+/* ===== ABOUT ===== */
+#about { background: var(--bg-secondary); }
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1.2fr;
+  gap: 5rem; align-items: start;
+}
+.about-photo {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius); aspect-ratio: 4/5;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 0.75rem; position: relative; overflow: hidden;
+}
+.about-photo::after {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--emerald-light), var(--gold));
+}
+.about-photo i { font-size: 4rem; color: var(--emerald-light); opacity: 0.3; }
+.about-photo p {
+  font-size: 0.72rem; font-family: var(--font-mono);
+  letter-spacing: 0.12em; color: var(--text-muted); text-transform: uppercase;
+}
+.about-content { display: flex; flex-direction: column; gap: 2.25rem; }
+.about-quote {
+  font-family: var(--font-display);
+  font-size: 1.35rem; font-style: italic; font-weight: 500;
+  line-height: 1.5; color: var(--ivory);
+  border-left: 2px solid var(--gold);
+  padding-left: 1.25rem; margin-bottom: 0.5rem;
+}
+.about-body { color: var(--text-secondary); line-height: 1.85; font-size: 0.97rem; }
+.about-values { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+.value-tag {
+  padding: 0.35rem 0.95rem;
+  background: rgba(16,60,58,0.25);
+  border: 1px solid rgba(16,60,58,0.5);
+  border-radius: 50px; font-size: 0.78rem;
+  color: #2EC4B6; font-weight: 500;
+}
+.about-mission {
+  background: linear-gradient(135deg, rgba(16,60,58,0.2), rgba(212,160,23,0.05));
+  border: 1px solid rgba(212,160,23,0.15);
+  border-radius: var(--radius); padding: 1.5rem;
+}
+.about-mission-label {
+  font-family: var(--font-mono); font-size: 0.65rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 0.75rem;
+}
+.about-mission p { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.75; font-style: italic; }
+
+/* ===== COUNTERS STRIP ===== */
+.counters-strip {
+  background: var(--bg-elevated);
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 3rem 5%;
+  display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap;
+}
+.counter-item { text-align: center; }
+.counter-num {
+  font-family: var(--font-display); font-size: 2.8rem; font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--gold), #E8BF60);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.counter-plus {
+  font-family: var(--font-display); font-size: 1.8rem;
+  color: var(--gold); margin-left: 2px; vertical-align: top; line-height: 1.4;
+}
+.counter-label {
+  font-size: 0.75rem; color: var(--text-muted);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  font-family: var(--font-mono); margin-top: 0.35rem;
 }
 
-/* ── FEATURED PROJECTS ── */
-.proj-card { border-radius: var(--radius); overflow: hidden; }
-.proj-thumb {
-  height: 190px;
-  display: flex; align-items: center; justify-content: center;
-  position: relative; overflow: hidden;
-  background: linear-gradient(135deg, var(--bg-secondary), var(--bg-card));
+/* ===== TIMELINE ===== */
+#journey { background: var(--bg-primary); }
+.timeline { position: relative; max-width: 840px; margin: 0 auto; }
+.timeline::before {
+  content: ''; position: absolute;
+  left: 50%; top: 0; bottom: 0; width: 1px;
+  background: linear-gradient(to bottom, transparent 0%, var(--emerald-light) 15%, var(--gold) 85%, transparent 100%);
+  transform: translateX(-50%); opacity: 0.5;
 }
-.proj-thumb::before {
-  content:''; position:absolute; inset:0;
-  background: linear-gradient(135deg, var(--accent-violet-dim), var(--accent-gold-dim));
+.timeline-item {
+  display: grid; grid-template-columns: 1fr 60px 1fr;
+  margin-bottom: 4rem; align-items: start;
 }
-.proj-thumb i { font-size: 2.8rem; color: var(--accent-violet); opacity:0.45; position:relative; }
-.proj-badge {
-  position:absolute; top:0.9rem; right:0.9rem;
-  background: linear-gradient(135deg,var(--accent-violet),#8B5CF6);
-  color:#fff; padding:0.22rem 0.75rem;
-  border-radius:50px; font-size:0.7rem; font-weight:600;
-}
-.proj-body { padding: 1.5rem; }
-.proj-title { font-family:var(--font-display); font-size:1.05rem; font-weight:700; margin-bottom:0.45rem; }
-.proj-desc { font-size:0.87rem; color:var(--text-secondary); line-height:1.7; margin-bottom:0.9rem; }
-.proj-tags { display:flex; flex-wrap:wrap; gap:0.35rem; margin-bottom:1.1rem; }
-.proj-impact { font-size:0.8rem; color:var(--accent-gold); display:flex; align-items:center; gap:0.4rem; margin-bottom:1.1rem; }
-.proj-impact::before { content:'★'; font-size:0.68rem; }
-.proj-footer { display:flex; justify-content:space-between; align-items:center; }
-
-/* ── TIMELINE PREVIEW ── */
-.tl-wrap { position:relative; max-width:760px; margin:0 auto; }
-.tl-wrap::before {
-  content:''; position:absolute;
-  left:50%; top:0; bottom:0; width:1px;
-  background: linear-gradient(to bottom, transparent, var(--accent-violet), var(--accent-gold), transparent);
-  transform:translateX(-50%);
-}
-.tl-item { display:grid; grid-template-columns:1fr 52px 1fr; margin-bottom:2.5rem; align-items:start; }
-.tl-item:nth-child(odd) .tl-content  { grid-column:1; text-align:right; padding-right:1.75rem; }
-.tl-item:nth-child(odd) .tl-mid      { grid-column:2; }
-.tl-item:nth-child(odd) .tl-empty    { grid-column:3; }
-.tl-item:nth-child(even) .tl-empty   { grid-column:1; }
-.tl-item:nth-child(even) .tl-mid     { grid-column:2; }
-.tl-item:nth-child(even) .tl-content { grid-column:3; text-align:left; padding-left:1.75rem; }
+.timeline-item:nth-child(odd) .tl-content { grid-column: 1; text-align: right; padding-right: 2.5rem; }
+.timeline-item:nth-child(odd) .tl-dot-wrap { grid-column: 2; }
+.timeline-item:nth-child(odd) .tl-empty { grid-column: 3; }
+.timeline-item:nth-child(even) .tl-empty { grid-column: 1; }
+.timeline-item:nth-child(even) .tl-dot-wrap { grid-column: 2; }
+.timeline-item:nth-child(even) .tl-content { grid-column: 3; text-align: left; padding-left: 2.5rem; }
+.tl-dot-wrap { display: flex; justify-content: center; }
 .tl-dot {
-  width:48px; height:48px; border-radius:50%;
-  background:var(--bg-card); border:2px solid var(--accent-violet);
-  display:flex; align-items:center; justify-content:center;
-  font-size:1rem; color:var(--accent-violet);
-  box-shadow: 0 0 18px var(--accent-violet-glow);
-  position:relative; z-index:1; margin:0 auto;
+  width: 52px; height: 52px; border-radius: 50%;
+  background: var(--bg-card);
+  border: 1.5px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; color: var(--gold); flex-shrink: 0;
+  box-shadow: 0 0 24px var(--gold-glow);
+  position: relative; z-index: 1;
 }
-.tl-year { font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.15em; color:var(--accent-gold); margin-bottom:0.3rem; }
-.tl-title { font-family:var(--font-display); font-size:1.1rem; font-weight:700; margin-bottom:0.4rem; }
-.tl-desc  { font-size:0.87rem; color:var(--text-secondary); line-height:1.7; }
+.tl-year {
+  font-family: var(--font-mono); font-size: 0.68rem;
+  letter-spacing: 0.16em; color: var(--gold);
+  text-transform: uppercase; margin-bottom: 0.5rem;
+}
+.tl-era {
+  font-family: var(--font-display); font-size: 1.4rem;
+  font-weight: 700; margin-bottom: 0.75rem; line-height: 1.2;
+}
+.tl-body {
+  font-size: 0.88rem; color: var(--text-secondary); line-height: 1.8;
+  margin-bottom: 1rem;
+}
+.tl-highlights { display: flex; flex-direction: column; gap: 0.4rem; }
+.tl-highlight {
+  display: flex; align-items: flex-start; gap: 0.5rem;
+  font-size: 0.82rem; color: var(--text-secondary);
+}
+.timeline-item:nth-child(odd) .tl-highlight { flex-direction: row-reverse; text-align: right; }
+.tl-highlight i { color: var(--gold); font-size: 0.7rem; margin-top: 0.3rem; flex-shrink: 0; }
+.tl-achievements { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.4rem; }
+.tl-achievement {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-size: 0.78rem; font-weight: 600;
+  padding: 0.3rem 0.75rem; border-radius: 50px;
+  background: rgba(212,160,23,0.1); border: 1px solid rgba(212,160,23,0.25);
+  color: var(--gold);
+}
+.timeline-item:nth-child(odd) .tl-achievements { align-items: flex-end; }
+.timeline-item:nth-child(even) .tl-achievements { align-items: flex-start; }
+.tl-photo {
+  margin-top: 1rem;
+  background: var(--bg-card); border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm); aspect-ratio: 16/9;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 0.5rem; position: relative; overflow: hidden;
+}
+.tl-photo i { font-size: 1.75rem; color: var(--text-muted); opacity: 0.4; }
+.tl-photo span { font-size: 0.65rem; font-family: var(--font-mono); color: var(--text-muted); letter-spacing: 0.1em; }
 
-/* ── GOALS ROADMAP ── */
-.roadmap { display:flex; flex-direction:column; gap:1.75rem; max-width:680px; }
-.rm-row  { display:grid; grid-template-columns:130px 1fr; gap:1.25rem; align-items:start; }
-.rm-phase {
-  background:var(--bg-card); border:1px solid var(--border-subtle);
-  border-radius:var(--radius-sm); padding:0.75rem 0.6rem;
-  text-align:center; position:relative;
+/* ===== RESEARCH PROJECTS ===== */
+#research { background: var(--bg-secondary); }
+.projects-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
 }
-.rm-phase::after {
-  content:''; position:absolute;
-  top:50%; right:-1.25rem; width:1.25rem; height:1px;
-  background:var(--border);
+.project-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius); padding: 2rem;
+  transition: var(--transition); position: relative;
+  overflow: hidden; cursor: default;
 }
-.rm-phase-label { font-size:0.65rem; font-family:var(--font-mono); letter-spacing:0.1em; text-transform:uppercase; color:var(--text-muted); margin-bottom:0.2rem; }
-.rm-phase-year  { font-family:var(--font-display); font-size:1rem; font-weight:700; }
-.rm-items { display:flex; flex-direction:column; gap:0.6rem; }
-.rm-item {
-  background:var(--bg-card); border:1px solid var(--border-subtle);
-  border-radius:var(--radius-sm); padding:0.9rem 1.1rem;
-  display:flex; align-items:flex-start; gap:0.65rem;
-  transition:var(--transition);
+.project-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--emerald-light), var(--gold));
+  opacity: 0; transition: opacity 0.35s;
 }
-.rm-item:hover { border-color:var(--border); transform:translateX(4px); }
-.rm-item i { color:var(--accent-violet); font-size:0.82rem; margin-top:0.15rem; flex-shrink:0; }
-.rm-title { font-weight:600; font-size:0.88rem; }
-.rm-sub   { font-size:0.8rem; color:var(--text-secondary); margin-top:0.15rem; }
+.project-card:hover {
+  border-color: var(--border); transform: translateY(-6px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+}
+.project-card:hover::before { opacity: 1; }
+.project-num {
+  font-family: var(--font-mono); font-size: 0.65rem;
+  color: var(--text-muted); letter-spacing: 0.12em;
+  margin-bottom: 1rem;
+}
+.project-icon {
+  width: 48px; height: 48px; border-radius: 12px;
+  background: rgba(16,60,58,0.25); border: 1px solid rgba(16,60,58,0.4);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; color: #2EC4B6; margin-bottom: 1.25rem;
+}
+.project-title {
+  font-family: var(--font-display); font-size: 1.05rem;
+  font-weight: 700; line-height: 1.4; margin-bottom: 0.75rem;
+  color: var(--ivory);
+}
+.project-desc {
+  font-size: 0.84rem; color: var(--text-secondary);
+  line-height: 1.75; margin-bottom: 1.25rem;
+}
+.project-award {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-size: 0.75rem; font-weight: 600; padding: 0.35rem 0.85rem;
+  border-radius: 50px;
+}
+.project-award.gold {
+  background: rgba(212,160,23,0.12); border: 1px solid rgba(212,160,23,0.3); color: var(--gold);
+}
+.project-award.silver {
+  background: rgba(176,196,222,0.1); border: 1px solid rgba(176,196,222,0.25); color: #B0C4DE;
+}
+.project-award.ongoing {
+  background: rgba(16,60,58,0.25); border: 1px solid rgba(46,196,182,0.3); color: #2EC4B6;
+}
+.project-year {
+  font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted);
+  margin-top: 1rem;
+}
 
-@media(max-width:900px){
-  .hero-photo { display:none; }
-  .about-preview-grid { grid-template-columns:1fr; }
+/* ===== ACHIEVEMENTS ===== */
+#achievements { background: var(--bg-primary); }
+.awards-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
 }
-@media(max-width:768px){
-  .tl-wrap::before { left:24px; transform:none; }
-  .tl-item { grid-template-columns:52px 1fr; }
-  .tl-item:nth-child(odd) .tl-content,
-  .tl-item:nth-child(even) .tl-content { grid-column:2; text-align:left; padding-left:1.5rem; padding-right:0; }
-  .tl-item:nth-child(odd) .tl-mid,
-  .tl-item:nth-child(even) .tl-mid     { grid-column:1; }
-  .tl-item:nth-child(odd) .tl-empty,
-  .tl-item:nth-child(even) .tl-empty   { display:none; }
-  .rm-row { grid-template-columns:1fr; }
-  .rm-phase::after { display:none; }
+.award-card {
+  background: var(--bg-card); border: 1px solid var(--border-subtle);
+  border-radius: var(--radius); padding: 1.5rem;
+  transition: var(--transition); display: flex; flex-direction: column; gap: 0.75rem;
+}
+.award-card:hover { border-color: var(--border); transform: translateY(-4px); box-shadow: var(--shadow-glow); }
+.award-medal {
+  font-size: 2rem; line-height: 1;
+}
+.award-place {
+  font-family: var(--font-mono); font-size: 0.68rem;
+  letter-spacing: 0.16em; text-transform: uppercase;
+}
+.award-place.intl { color: var(--gold); }
+.award-place.natl { color: #2EC4B6; }
+.award-place.prov { color: #8A9AB0; }
+.award-name {
+  font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+  line-height: 1.3; color: var(--ivory);
+}
+.award-level {
+  font-size: 0.78rem; color: var(--text-secondary);
+}
+.award-year {
+  font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted);
+  margin-top: auto;
+}
+.awards-summary {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem; margin-bottom: 3rem;
+}
+.summary-card {
+  background: var(--bg-card); border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm); padding: 1.25rem;
+  text-align: center; transition: var(--transition);
+}
+.summary-card:hover { border-color: var(--border); }
+.summary-num {
+  font-family: var(--font-display); font-size: 2.4rem; font-weight: 900; line-height: 1;
+  background: linear-gradient(135deg, var(--gold), #E8BF60);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.summary-label {
+  font-size: 0.72rem; color: var(--text-muted);
+  font-family: var(--font-mono); letter-spacing: 0.1em;
+  text-transform: uppercase; margin-top: 0.35rem;
+}
+
+/* ===== SKILLS ===== */
+#skills { background: var(--bg-secondary); }
+.skills-layout { display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: start; }
+.skills-bars { display: flex; flex-direction: column; gap: 1.5rem; }
+.skill-item { }
+.skill-header { display: flex; justify-content: space-between; margin-bottom: 0.6rem; align-items: baseline; }
+.skill-name { font-size: 0.9rem; font-weight: 500; color: var(--ivory); }
+.skill-pct { font-family: var(--font-mono); font-size: 0.78rem; color: var(--gold); }
+.skill-bar {
+  height: 4px; background: var(--border-subtle);
+  border-radius: 4px; overflow: hidden;
+}
+.skill-fill {
+  height: 100%; border-radius: 4px; width: 0;
+  background: linear-gradient(90deg, var(--emerald-light), var(--gold));
+  transition: width 1.4s cubic-bezier(0.4,0,0.2,1);
+}
+.skills-competency { display: flex; flex-direction: column; gap: 1rem; }
+.competency-title {
+  font-family: var(--font-display); font-size: 1.1rem; font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+.comp-item {
+  background: var(--bg-card); border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm); padding: 1rem;
+  text-align: center; transition: var(--transition);
+}
+.comp-item:hover { border-color: var(--border); }
+.comp-grade {
+  font-family: var(--font-display); font-size: 1.8rem; font-weight: 900; line-height: 1;
+  background: linear-gradient(135deg, var(--gold), #E8BF60);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.comp-label {
+  font-size: 0.7rem; color: var(--text-muted);
+  font-family: var(--font-mono); letter-spacing: 0.08em;
+  margin-top: 0.25rem;
+}
+.research-interests { margin-top: 1.5rem; }
+.research-interests h3 {
+  font-family: var(--font-display); font-size: 1rem; font-weight: 600;
+  margin-bottom: 0.75rem; color: var(--gold);
+}
+.interest-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.interest-tag {
+  padding: 0.3rem 0.8rem;
+  background: rgba(16,60,58,0.2); border: 1px solid rgba(16,60,58,0.4);
+  border-radius: 50px; font-size: 0.75rem; color: #2EC4B6;
+}
+
+/* ===== GALLERY ===== */
+#gallery { background: var(--bg-primary); }
+.gallery-filters { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+.filter-btn {
+  padding: 0.4rem 1.1rem; border-radius: 50px;
+  font-size: 0.8rem; font-weight: 500;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary); transition: var(--transition);
+}
+.filter-btn.active, .filter-btn:hover {
+  background: var(--gold-dim); border-color: var(--gold); color: var(--gold);
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+.gallery-item {
+  border-radius: var(--radius-sm); overflow: hidden;
+  aspect-ratio: 4/3; background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 0.5rem; transition: var(--transition);
+  cursor: pointer; position: relative;
+}
+.gallery-item:hover { transform: scale(1.03); border-color: var(--border); }
+.gallery-item i { font-size: 1.8rem; color: var(--text-muted); opacity: 0.35; }
+.gallery-item span { font-size: 0.68rem; font-family: var(--font-mono); color: var(--text-muted); letter-spacing: 0.1em; }
+.gallery-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(16,60,58,0.4), rgba(212,160,23,0.15));
+  opacity: 0; transition: opacity 0.3s;
+  display: flex; align-items: center; justify-content: center;
+}
+.gallery-item:hover .gallery-overlay { opacity: 1; }
+.gallery-overlay i { font-size: 1.5rem; color: var(--ivory); opacity: 1; }
+
+/* ===== ROADMAP ===== */
+#roadmap { background: var(--bg-secondary); }
+.roadmap-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.roadmap-phase {
+  background: var(--bg-card); border: 1px solid var(--border-subtle);
+  border-radius: var(--radius); padding: 2rem;
+  transition: var(--transition); position: relative; overflow: hidden;
+}
+.roadmap-phase:hover { border-color: var(--border); transform: translateY(-4px); }
+.roadmap-phase::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+}
+.roadmap-phase.short::before { background: linear-gradient(90deg, var(--emerald-light), #2EC4B6); }
+.roadmap-phase.medium::before { background: linear-gradient(90deg, var(--gold), #E8BF60); }
+.roadmap-phase.long::before { background: linear-gradient(90deg, #B45309, var(--gold)); }
+.phase-label {
+  font-family: var(--font-mono); font-size: 0.65rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 0.4rem;
+}
+.phase-period {
+  font-family: var(--font-display); font-size: 1.5rem; font-weight: 900;
+  line-height: 1; margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, var(--gold), #E8BF60);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.phase-items { display: flex; flex-direction: column; gap: 0.75rem; }
+.phase-item {
+  display: flex; align-items: flex-start; gap: 0.65rem;
+  font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;
+}
+.phase-item i { color: var(--gold); font-size: 0.7rem; margin-top: 0.35rem; flex-shrink: 0; }
+
+/* ===== CONTACT ===== */
+#contact { background: var(--bg-primary); }
+.contact-layout { display: grid; grid-template-columns: 1fr 1.1fr; gap: 5rem; align-items: start; }
+.contact-intro {
+  font-size: 0.97rem; color: var(--text-secondary);
+  line-height: 1.85; margin-bottom: 2rem;
+}
+.contact-links { display: flex; flex-direction: column; gap: 1rem; }
+.contact-link-item {
+  display: flex; align-items: center; gap: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--bg-card); border: 1px solid var(--border-subtle);
+  border-radius: var(--radius); transition: var(--transition);
+}
+.contact-link-item:hover { border-color: var(--border); transform: translateX(4px); }
+.contact-link-icon {
+  width: 44px; height: 44px; border-radius: 10px;
+  background: rgba(16,60,58,0.25); border: 1px solid rgba(16,60,58,0.4);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; color: #2EC4B6; flex-shrink: 0;
+}
+.contact-link-meta { display: flex; flex-direction: column; }
+.contact-link-label { font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono); letter-spacing: 0.1em; margin-bottom: 0.2rem; }
+.contact-link-val { font-weight: 600; font-size: 0.9rem; color: var(--ivory); }
+.contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+.form-label { font-size: 0.8rem; font-weight: 500; color: var(--text-secondary); letter-spacing: 0.03em; }
+.form-input, .form-textarea {
+  background: var(--bg-card); border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm); padding: 0.9rem 1.1rem;
+  color: var(--text-primary); font-family: var(--font-body); font-size: 0.92rem;
+  transition: var(--transition); resize: none; width: 100%;
+}
+.form-input:focus, .form-textarea:focus {
+  outline: none; border-color: var(--gold);
+  box-shadow: 0 0 0 3px var(--gold-dim);
+}
+.form-textarea { height: 130px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.contact-glass {
+  background: linear-gradient(135deg, rgba(16,60,58,0.12), rgba(212,160,23,0.05));
+  border: 1px solid rgba(212,160,23,0.15);
+  border-radius: var(--radius); padding: 2rem;
+  margin-bottom: 2rem; backdrop-filter: blur(12px);
+}
+.contact-glass-title {
+  font-family: var(--font-display); font-size: 1.3rem; font-weight: 700;
+  margin-bottom: 0.5rem; color: var(--ivory);
+}
+.contact-glass-sub { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7; }
+.interest-areas { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.25rem; }
+.interest-area {
+  padding: 0.3rem 0.8rem;
+  background: rgba(212,160,23,0.08); border: 1px solid rgba(212,160,23,0.2);
+  border-radius: 50px; font-size: 0.73rem; color: var(--gold);
+}
+
+/* ===== FOOTER ===== */
+footer {
+  background: var(--bg-elevated);
+  border-top: 1px solid var(--border-subtle);
+  padding: 2.5rem 5%;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-logo {
+  font-family: var(--font-display); font-size: 1.05rem;
+  font-weight: 700; font-style: italic; color: var(--ivory);
+}
+.footer-logo span { color: var(--gold); font-style: normal; }
+.footer-socials { display: flex; gap: 0.75rem; }
+.social-btn {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--bg-card); border: 1px solid var(--border-subtle);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem; color: var(--text-secondary);
+  transition: var(--transition);
+}
+.social-btn:hover { color: var(--gold); border-color: var(--gold); transform: translateY(-2px); }
+.footer-copy {
+  font-family: var(--font-mono); font-size: 0.68rem;
+  color: var(--text-muted); letter-spacing: 0.1em;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  #hero { grid-template-columns: 1fr; gap: 3rem; }
+  .hero-right { display: none; }
+  .about-grid { grid-template-columns: 1fr; }
+  .about-photo { display: none; }
+  .skills-layout { grid-template-columns: 1fr; }
+  .roadmap-grid { grid-template-columns: 1fr; }
+  .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
+}
+@media (max-width: 768px) {
+  section { padding: 5rem 5%; }
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+  .timeline::before { left: 24px; }
+  .timeline-item { grid-template-columns: 60px 1fr; }
+  .timeline-item:nth-child(odd) .tl-content,
+  .timeline-item:nth-child(even) .tl-content { grid-column: 2; text-align: left; padding-left: 1.5rem; padding-right: 0; }
+  .timeline-item:nth-child(odd) .tl-dot-wrap,
+  .timeline-item:nth-child(even) .tl-dot-wrap { grid-column: 1; }
+  .timeline-item .tl-empty { display: none; }
+  .timeline-item:nth-child(odd) .tl-achievements { align-items: flex-start; }
+  .timeline-item:nth-child(odd) .tl-highlight { flex-direction: row; text-align: left; }
+  .counters-strip { gap: 2rem; }
+  .roadmap-grid { grid-template-columns: 1fr; }
+  footer { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 480px) {
+  .form-row { grid-template-columns: 1fr; }
+  .awards-grid { grid-template-columns: 1fr; }
+  .comp-grid { grid-template-columns: 1fr 1fr; }
 }
 </style>
 </head>
 <body>
 
-<div id="mini-loader"></div>
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-wordmark">Mukhammad Ulil <span>Albab</span></div>
+  <div class="loader-ring"></div>
+  <div class="loader-label">Initializing Research Portfolio</div>
+</div>
+
+<!-- SCROLL PROGRESS -->
 <div id="scroll-progress"></div>
+
+<!-- BACK TO TOP -->
+<button id="back-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
 
 <!-- NAV -->
 <nav id="navbar">
-  <a href="index.html" class="nav-logo">Olympus Zero</a>
-  <ul class="nav-links">
-    <li><a href="index.html"        class="nav-link"><i class="fas fa-house"></i> Home</a></li>
-    <li><a href="about.html"        class="nav-link"><i class="fas fa-user"></i> About</a></li>
-    <li><a href="projects.html"     class="nav-link"><i class="fas fa-layer-group"></i> Projects</a></li>
-    <li><a href="achievements.html" class="nav-link"><i class="fas fa-trophy"></i> Achievements</a></li>
-    <li><a href="gallery.html"      class="nav-link"><i class="fas fa-images"></i> Gallery</a></li>
-    <li><a href="contact.html"      class="nav-link"><i class="fas fa-paper-plane"></i> Contact</a></li>
-  </ul>
-  <div class="nav-actions">
-    <button class="icon-btn" id="theme-toggle" aria-label="Toggle theme"><i class="fas fa-moon" id="theme-icon"></i></button>
-    <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  <a href="#hero" class="nav-logo">Ulil <span>Albab</span></a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#journey">Journey</a>
+    <a href="#research">Research</a>
+    <a href="#achievements">Awards</a>
+    <a href="#skills">Skills</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#contact">Contact</a>
   </div>
+  <a href="#contact" class="btn nav-cta">Let's Connect</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
-<!-- MOBILE DRAWER -->
-<div id="mobile-drawer">
-  <a href="index.html"        class="drawer-link"><i class="fas fa-house"></i> Home</a>
-  <a href="about.html"        class="drawer-link"><i class="fas fa-user"></i> About</a>
-  <a href="projects.html"     class="drawer-link"><i class="fas fa-layer-group"></i> Projects</a>
-  <a href="achievements.html" class="drawer-link"><i class="fas fa-trophy"></i> Achievements</a>
-  <a href="gallery.html"      class="drawer-link"><i class="fas fa-images"></i> Gallery</a>
-  <a href="contact.html"      class="drawer-link"><i class="fas fa-paper-plane"></i> Contact</a>
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#about" class="mobile-link">About</a>
+  <a href="#journey" class="mobile-link">Journey</a>
+  <a href="#research" class="mobile-link">Research</a>
+  <a href="#achievements" class="mobile-link">Awards</a>
+  <a href="#skills" class="mobile-link">Skills</a>
+  <a href="#roadmap" class="mobile-link">Roadmap</a>
+  <a href="#contact" class="mobile-link">Contact</a>
 </div>
-<div id="drawer-overlay"></div>
 
-<div id="page-wrapper">
-
-<!-- ═══ HERO ═══ -->
+<!-- HERO -->
 <section id="hero">
-  <canvas id="c-canvas"></canvas>
-  <div class="hero-inner">
-    <div class="hero-badge reveal"><span class="dot"></span> Open to Opportunities</div>
-    <h1 class="hero-name reveal d1">Your<br><span class="grad">Name Here</span></h1>
-    <p class="hero-uni reveal d2">University Name &nbsp;·&nbsp; Major / Department</p>
-    <p class="hero-tagline reveal d2">Explorer of ideas.<br>Builder of futures.</p>
-    <p class="hero-intro reveal d3">A passionate university student at the intersection of technology, research, and innovation — documenting the journey, one milestone at a time.</p>
-    <div class="hero-cta reveal d3">
-      <a href="projects.html" class="btn btn-primary btn-lg"><i class="fas fa-layer-group"></i> View Portfolio</a>
-      <a href="docs/CV.pdf" download class="btn btn-outline btn-lg"><i class="fas fa-download"></i> Download CV</a>
+  <canvas id="particle-canvas"></canvas>
+  <div class="hero-bg-orb hero-bg-orb-1"></div>
+  <div class="hero-bg-orb hero-bg-orb-2"></div>
+
+  <div class="hero-left">
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      IPB University · Food Technology · Class of '63
     </div>
-    <div class="hero-stats reveal d4">
-      <div><div class="h-stat-num grad"><span data-count="12">0</span>+</div><div class="h-stat-label">Projects</div></div>
-      <div><div class="h-stat-num grad"><span data-count="8">0</span>+</div><div class="h-stat-label">Awards</div></div>
-      <div><div class="h-stat-num grad"><span data-count="3">0</span></div><div class="h-stat-label">Publications</div></div>
+    <h1 class="hero-name">
+      Mukhammad<br><em>Ulil Albab</em>
+    </h1>
+    <p class="hero-university">
+      <i class="fas fa-university"></i>
+      Institut Pertanian Bogor — Food Technology
+    </p>
+    <p class="hero-roles">
+      Researcher · Innovator · <span>Science Competition Champion</span>
+    </p>
+    <p class="hero-desc">
+      A passionate researcher and innovator with experience in scientific research, sustainability, technology development, and national and international competitions. Dedicated to transforming ideas into impactful solutions through science, creativity, and continuous learning.
+    </p>
+    <div class="hero-actions">
+      <a href="#journey" class="btn btn-primary"><i class="fas fa-compass"></i> Explore My Journey</a>
+      <a href="#research" class="btn btn-gold"><i class="fas fa-flask"></i> Research Portfolio</a>
+      <a href="#" class="btn btn-outline"><i class="fas fa-download"></i> Download CV</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num"><span data-count="38">0</span></div>
+        <div class="hero-stat-label">Projects</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num"><span data-count="10">0</span></div>
+        <div class="hero-stat-label">Awards</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num"><span data-count="4">0</span></div>
+        <div class="hero-stat-label">Intl Awards</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num"><span data-count="6">0</span></div>
+        <div class="hero-stat-label">Conferences</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num"><span data-count="3">0</span></div>
+        <div class="hero-stat-label">Leadership</div>
+      </div>
     </div>
   </div>
-  <div class="hero-photo">
-    <i class="fas fa-user"></i>
-    <p>// Photo Here</p>
+
+  <div class="hero-right">
+    <div class="hero-portrait-wrap">
+      <div class="hero-portrait">
+        <div class="hero-portrait-border"></div>
+        <i class="fas fa-user hero-portrait-icon"></i>
+        <p class="hero-portrait-label">Upload Portrait Photo</p>
+      </div>
+      <div class="floating-badge floating-badge-1">
+        <i class="fas fa-trophy"></i>
+        <span>4× International Award</span>
+      </div>
+      <div class="floating-badge floating-badge-2">
+        <i class="fas fa-flask"></i>
+        <span>7 Research Projects</span>
+      </div>
+      <div class="floating-badge floating-badge-3">
+        <i class="fas fa-university"></i>
+        <span>IPB University</span>
+      </div>
+    </div>
   </div>
-  <div class="scroll-hint"><i class="fas fa-chevron-down"></i> Scroll to explore</div>
 </section>
 
-<!-- ═══ COUNTER STRIP ═══ -->
-<div class="counter-strip">
-  <div class="counter-cell reveal">
-    <div class="counter-num grad"><span data-count="12">0</span><span class="counter-unit">+</span></div>
-    <div class="counter-label">Academic Projects</div>
+<!-- COUNTERS STRIP -->
+<div class="counters-strip reveal">
+  <div class="counter-item">
+    <div class="counter-num"><span data-count="38">0</span><span class="counter-plus">+</span></div>
+    <div class="counter-label">Projects</div>
   </div>
-  <div class="counter-cell reveal d1">
-    <div class="counter-num grad"><span data-count="8">0</span><span class="counter-unit">+</span></div>
-    <div class="counter-label">Awards & Honors</div>
+  <div class="counter-item">
+    <div class="counter-num"><span data-count="10">0</span></div>
+    <div class="counter-label">Total Awards</div>
   </div>
-  <div class="counter-cell reveal d2">
-    <div class="counter-num grad"><span data-count="3">0</span></div>
-    <div class="counter-label">Publications</div>
+  <div class="counter-item">
+    <div class="counter-num"><span data-count="4">0</span></div>
+    <div class="counter-label">International</div>
   </div>
-  <div class="counter-cell reveal d3">
-    <div class="counter-num grad"><span data-count="5">0</span><span class="counter-unit">+</span></div>
+  <div class="counter-item">
+    <div class="counter-num"><span data-count="3">0</span></div>
+    <div class="counter-label">National</div>
+  </div>
+  <div class="counter-item">
+    <div class="counter-num"><span data-count="6">0</span></div>
     <div class="counter-label">Conferences</div>
   </div>
+  <div class="counter-item">
+    <div class="counter-num"><span data-count="3">0</span></div>
+    <div class="counter-label">Organizations</div>
+  </div>
 </div>
 
-<!-- ═══ ABOUT PREVIEW ═══ -->
-<section class="section section-alt">
-  <div class="about-preview-grid">
-    <div class="about-photo-ph img-placeholder reveal" style="min-height:360px;">
-      <i class="fas fa-user" style="font-size:3.5rem;"></i>
-      <span>Profile Photo</span>
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-photo reveal">
+      <i class="fas fa-user-graduate"></i>
+      <p>Profile Photo Here</p>
+    </div>
+    <div class="about-content">
+      <div class="reveal">
+        <div class="section-eyebrow">About Me</div>
+        <h2 class="section-title">Who I Am</h2>
+      </div>
+      <p class="about-quote reveal reveal-d1">
+        "From a student who struggled in elementary school to an international award-winning researcher and future innovator."
+      </p>
+      <p class="about-body reveal reveal-d2">
+        I am Mukhammad Ulil Albab, a Food Technology student at IPB University with a strong passion for research, innovation, and interdisciplinary problem-solving. My journey spans scientific research, sustainability, environmental innovation, technology development, and academic competitions. Through various projects and leadership experiences, I continuously seek opportunities to transform ideas into meaningful solutions that create positive impacts for society.
+      </p>
+      <div class="reveal reveal-d2">
+        <p style="font-size:0.82rem;color:var(--text-muted);font-family:var(--font-mono);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.6rem;">Core Values</p>
+        <div class="about-values">
+          <span class="value-tag">Curiosity</span>
+          <span class="value-tag">Integrity</span>
+          <span class="value-tag">Innovation</span>
+          <span class="value-tag">Leadership</span>
+          <span class="value-tag">Resilience</span>
+          <span class="value-tag">Continuous Growth</span>
+        </div>
+      </div>
+      <div class="about-mission reveal reveal-d3">
+        <div class="about-mission-label">Mission Statement</div>
+        <p>To become a researcher and innovator who bridges science, technology, and real-world impact — contributing to sustainable development and future generations.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNEY TIMELINE -->
+<section id="journey">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Life Timeline</div>
+    <h2 class="section-title">My <em style="font-style:italic;">Journey</em></h2>
+    <p class="section-subtitle">From Kebumen to IPB University — a story of transformation, resilience, and scientific discovery.</p>
+  </div>
+
+  <div class="timeline">
+
+    <!-- Childhood -->
+    <div class="timeline-item reveal">
+      <div class="tl-content">
+        <div class="tl-year">2008 – 2015</div>
+        <h3 class="tl-era">Childhood & Early Formation</h3>
+        <p class="tl-body">Born in Kebumen, Central Java, and raised in Jakarta by Javanese parents who migrated in search of better opportunities. Growing up in a modest family environment taught me the values of hard work, perseverance, and gratitude from an early age.</p>
+        <div class="tl-highlights">
+          <div class="tl-highlight"><i class="fas fa-circle"></i><span>Born in Kebumen, Central Java</span></div>
+          <div class="tl-highlight"><i class="fas fa-circle"></i><span>Raised in Jakarta by Javanese migrant parents</span></div>
+          <div class="tl-highlight"><i class="fas fa-circle"></i><span>Built resilience, curiosity, and adaptability</span></div>
+        </div>
+        <div class="tl-photo">
+          <i class="fas fa-camera"></i>
+          <span>Childhood Photo</span>
+        </div>
+      </div>
+      <div class="tl-dot-wrap">
+        <div class="tl-dot"><i class="fas fa-seedling"></i></div>
+      </div>
+      <div class="tl-empty"></div>
+    </div>
+
+    <!-- Elementary -->
+    <div class="timeline-item reveal">
+      <div class="tl-empty"></div>
+      <div class="tl-dot-wrap">
+        <div class="tl-dot"><i class="fas fa-book"></i></div>
+      </div>
+      <div class="tl-content">
+        <div class="tl-year">2015 – 2021</div>
+        <h3 class="tl-era">Elementary School</h3>
+        <p class="tl-body">Unlike many stories of high-achieving students, my elementary years were not defined by academic excellence. I faced behavioral and academic challenges — but this period taught me invaluable lessons about responsibility, perseverance, and self-improvement that became the foundation for everything that followed.</p>
+        <div class="tl-highlights">
+          <div class="tl-highlight"><i class="fas fa-circle"></i><span>Character development and personal growth</span></div>
+          <div class="tl-highlight"><i class="fas fa-circle"></i><span>Learning through challenges and mistakes</span></div>
+          <div class="tl-highlight"><i class="fas fa-circle"></i><span>Building resilience for the future</span></div>
+        </div>
+        <div class="tl-photo">
+          <i class="fas fa-camera"></i>
+          <span>Elementary School Photo</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Junior High -->
+    <div class="timeline-item reveal">
+      <div class="tl-content">
+        <div class="tl-year">2021 – 2023</div>
+        <h3 class="tl-era">Junior High School</h3>
+        <p class="tl-body">The beginning of my academic transformation. I developed a strong interest in science, technology, geography, and history — and first participated in research and innovation activities. Student organizations taught me teamwork, communication, and leadership.</p>
+        <div class="tl-highlights">
+          <div class="tl-highlight"><i class="fas fa-circle"></i><span>First research & innovation activities</span></div>
+          <div class="tl-highlight"><i class="fas fa-circle"></i><span>Student Council (OSIS), 2022–2023</span></div>
+          <div class="tl-highlight"><i class="fas fa-circle"></i><span>Built confidence through competitions</span></div>
+        </div>
+        <div class="tl-achievements">
+          <span class="tl-achievement"><i class="fas fa-medal"></i> GYIIF — 2nd Place, International</span>
+        </div>
+        <div class="tl-photo">
+          <i class="fas fa-camera"></i>
+          <span>OSIS / Competition Photo</span>
+        </div>
+      </div>
+      <div class="tl-dot-wrap">
+        <div class="tl-dot"><i class="fas fa-atom"></i></div>
+      </div>
+      <div class="tl-empty"></div>
+    </div>
+
+    <!-- Senior High -->
+    <div class="timeline-item reveal">
+      <div class="tl-empty"></div>
+      <div class="tl-dot-wrap">
+        <div class="tl-dot"><i class="fas fa-trophy"></i></div>
+      </div>
+      <div class="tl-content">
+        <div class="tl-year">2023 – 2026</div>
+        <h3 class="tl-era">Senior High School</h3>
+        <p class="tl-body">The most transformative chapter. Research, innovation, leadership, and competition participation accelerated together. I served as Secretary of both Pramuka and KIR while competing at regional, national, and international levels.</p>
+        <div class="tl-highlights">
+          <div class="tl-highlight"><i class="fas fa-circle"></i><span>Secretary — Pramuka (Scout), 2024–2025</span></div>
+          <div class="tl-highlight"><i class="fas fa-circle"></i><span>Secretary — KIR (Youth Scientific Club), 2024–2025</span></div>
+        </div>
+        <div class="tl-achievements">
+          <span class="tl-achievement"><i class="fas fa-star"></i> Stallion SMAN 5 — HM1, Regional (2023)</span>
+          <span class="tl-achievement"><i class="fas fa-medal"></i> I2ASPO — 2nd Place, International (2023)</span>
+          <span class="tl-achievement"><i class="fas fa-medal"></i> JISF — 2nd Place, International (2024)</span>
+          <span class="tl-achievement"><i class="fas fa-medal"></i> JMC Research — 2nd Place, Provincial (2024)</span>
+          <span class="tl-achievement"><i class="fas fa-trophy"></i> ISIF — 1st Place, International (2024)</span>
+          <span class="tl-achievement"><i class="fas fa-trophy"></i> OS2MN — 1st Place, National (2025)</span>
+          <span class="tl-achievement"><i class="fas fa-trophy"></i> JMC Geography — 1st Place, Provincial (2025)</span>
+          <span class="tl-achievement"><i class="fas fa-trophy"></i> AGRIET IPB — 1st Place + Golden Ticket (2025)</span>
+          <span class="tl-achievement"><i class="fas fa-trophy"></i> TENNOVEX ITS — 1st Place, National (2025)</span>
+        </div>
+        <div class="tl-photo">
+          <i class="fas fa-camera"></i>
+          <span>Competition / Lab Photo</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- University -->
+    <div class="timeline-item reveal">
+      <div class="tl-content">
+        <div class="tl-year">2026 – Present</div>
+        <h3 class="tl-era">IPB University</h3>
+        <p class="tl-body">Currently pursuing Food Technology at IPB University. Building on competition and research experience, expanding into food science, sustainability, nanotechnology, and data-driven problem solving. The next chapter is just beginning.</p>
+        <div class="tl-highlights">
+          <div class="tl-highlight"><i class="fas fa-circle"></i><span>Food Technology — Institut Pertanian Bogor</span></div>
+          <div class="tl-highlight"><i class="fas fa-circle"></i><span>Research, innovation & scientific competitions</span></div>
+          <div class="tl-highlight"><i class="fas fa-circle"></i><span>Sustainability & interdisciplinary studies</span></div>
+        </div>
+        <div class="tl-photo">
+          <i class="fas fa-camera"></i>
+          <span>IPB University Photo</span>
+        </div>
+      </div>
+      <div class="tl-dot-wrap">
+        <div class="tl-dot" style="border-color:var(--gold);box-shadow:0 0 24px var(--gold-glow);"><i class="fas fa-graduation-cap"></i></div>
+      </div>
+      <div class="tl-empty"></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- RESEARCH PROJECTS -->
+<section id="research">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Research & Scientific Projects</div>
+    <h2 class="section-title">Scientific <em style="font-style:italic;">Work</em></h2>
+    <p class="section-subtitle">Seven research projects spanning antimicrobials, nanotechnology, environmental remediation, halal innovation, and renewable energy.</p>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card reveal">
+      <div class="project-num">Research Project — 01</div>
+      <div class="project-icon"><i class="fas fa-bacterium"></i></div>
+      <h3 class="project-title">Analysis of Inhibition Zone from Papaya & Basil Leaf Extracts as E. coli Growth Inhibitors</h3>
+      <p class="project-desc">Investigated the antibacterial potential of Carica papaya and Ocimum basilicum extracts against Escherichia coli through inhibition zone analysis, exploring natural alternatives to synthetic antimicrobials.</p>
+      <span class="project-award silver"><i class="fas fa-medal"></i> I2ASPO — International Silver Medal</span>
+      <div class="project-year">2023 · International Research Competition</div>
+    </div>
+
+    <div class="project-card reveal reveal-d1">
+      <div class="project-num">Research Project — 02</div>
+      <div class="project-icon"><i class="fas fa-leaf"></i></div>
+      <h3 class="project-title">Breast Milk Booster Innovation: Fenugreek, Katuk & Torbangun Leaves for Working Mothers</h3>
+      <p class="project-desc">Developed a natural lactation-support product combining fenugreek seeds, katuk leaves, and torbangun leaves for breastfeeding working mothers through evidence-based herbal supplementation.</p>
+      <span class="project-award gold"><i class="fas fa-trophy"></i> ISIF — International Gold Medal</span>
+      <div class="project-year">2024 · International Research Competition</div>
+    </div>
+
+    <div class="project-card reveal reveal-d2">
+      <div class="project-num">Research Project — 03</div>
+      <div class="project-icon"><i class="fas fa-microscope"></i></div>
+      <h3 class="project-title">Education on Counterfeit Skincare Dangers with Early Detection for Jakarta Teenagers</h3>
+      <p class="project-desc">Combined public health education with practical early detection methods for potentially harmful counterfeit cosmetic products, targeting teenagers in Jakarta.</p>
+      <span class="project-award silver"><i class="fas fa-medal"></i> JISF — International Silver Medal</span>
+      <div class="project-year">2024 · International Research Competition</div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">Research Project — 04</div>
+      <div class="project-icon"><i class="fas fa-mountain"></i></div>
+      <h3 class="project-title">Soil Pollution Remediation Using Biochar as a Sustainable Eco-Friendly Solution</h3>
+      <p class="project-desc">Explores biochar as an environmentally friendly material for reducing soil contamination from industrial and household waste, focusing on long-term soil health and sustainable remediation.</p>
+      <span class="project-award ongoing"><i class="fas fa-flask"></i> Independent Research Project</span>
+      <div class="project-year">Ongoing</div>
+    </div>
+
+    <div class="project-card reveal reveal-d1">
+      <div class="project-num">Research Project — 05</div>
+      <div class="project-icon"><i class="fas fa-dna"></i></div>
+      <h3 class="project-title">Halal Kit Innovation: Pork Oil Detection via GO/AuNPs-Modified SPCE Biosensor with IoT Readout</h3>
+      <p class="project-desc">Developing an innovative halal authentication system using Graphene Oxide and Gold Nanoparticle-modified biosensors integrated with IoT technology for real-time contaminant detection.</p>
+      <span class="project-award ongoing"><i class="fas fa-flask"></i> National Competition — OPSI</span>
+      <div class="project-year">Ongoing</div>
+    </div>
+
+    <div class="project-card reveal reveal-d2">
+      <div class="project-num">Research Project — 06</div>
+      <div class="project-icon"><i class="fas fa-vial"></i></div>
+      <h3 class="project-title">Synthesis of ZnO–SiO₂ for Degradation of Lead & Organic Phenol Waste and Pb(II) Photoreduction</h3>
+      <p class="project-desc">Investigated ZnO–SiO₂ composite materials for degrading hazardous organic pollutants and reducing heavy metal contamination, contributing to sustainable environmental remediation technologies.</p>
+      <span class="project-award silver"><i class="fas fa-medal"></i> JMC Scientific Research — Provincial Silver</span>
+      <div class="project-year">2024 · Provincial Research Competition</div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">Research Project — 07</div>
+      <div class="project-icon"><i class="fas fa-seedling"></i></div>
+      <h3 class="project-title">Utilization of Rice Husk Waste as Raw Material for Eco-Friendly Bioenergy Briquettes</h3>
+      <p class="project-desc">Converting rice husk agricultural waste into sustainable bioenergy briquettes to improve renewable energy utilization while reducing the environmental impact of agricultural residues.</p>
+      <span class="project-award ongoing"><i class="fas fa-spinner fa-spin"></i> Research in Progress</span>
+      <div class="project-year">2026 · Ongoing Research</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Achievements & Honors</div>
+    <h2 class="section-title">Awards & <em style="font-style:italic;">Recognition</em></h2>
+    <p class="section-subtitle">Ten awards across international, national, provincial, and regional competitions — spanning 2023 to 2025.</p>
+  </div>
+
+  <div class="awards-summary reveal">
+    <div class="summary-card">
+      <div class="summary-num">10</div>
+      <div class="summary-label">Total Awards</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-num">4</div>
+      <div class="summary-label">International</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-num">3</div>
+      <div class="summary-label">National</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-num">2</div>
+      <div class="summary-label">Provincial</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-num">1</div>
+      <div class="summary-label">Regional</div>
+    </div>
+  </div>
+
+  <div class="awards-grid">
+    <div class="award-card reveal">
+      <div class="award-medal">🏆</div>
+      <div class="award-place intl">1st Place · International Level</div>
+      <div class="award-name">International Science and Invention Fair (ISIF)</div>
+      <div class="award-level">Breast Milk Booster Innovation</div>
+      <div class="award-year">2024</div>
+    </div>
+    <div class="award-card reveal reveal-d1">
+      <div class="award-medal">🥇</div>
+      <div class="award-place natl">1st Place · National Level</div>
+      <div class="award-name">Olimpiade Sains Siswa Madrasah Nasional (OS2MN)</div>
+      <div class="award-level">National Science Olympiad</div>
+      <div class="award-year">2025</div>
+    </div>
+    <div class="award-card reveal reveal-d2">
+      <div class="award-medal">🥇</div>
+      <div class="award-place natl">1st Place + Golden Ticket · National Level</div>
+      <div class="award-name">AgriTech Competition FTT IPB (AGRIET)</div>
+      <div class="award-level">Golden Ticket Award Winner</div>
+      <div class="award-year">2025</div>
+    </div>
+    <div class="award-card reveal">
+      <div class="award-medal">🥇</div>
+      <div class="award-place natl">1st Place · National Level</div>
+      <div class="award-name">TENNOVEX ITS</div>
+      <div class="award-level">Technology Innovation Competition</div>
+      <div class="award-year">2025</div>
+    </div>
+    <div class="award-card reveal reveal-d1">
+      <div class="award-medal">🥇</div>
+      <div class="award-place prov">1st Place · Provincial Level</div>
+      <div class="award-name">Jakarta Madrasah Competition (JMC) — Geography</div>
+      <div class="award-level">Provincial Geography Champion</div>
+      <div class="award-year">2025</div>
+    </div>
+    <div class="award-card reveal reveal-d2">
+      <div class="award-medal">🥈</div>
+      <div class="award-place intl">2nd Place · International Level</div>
+      <div class="award-name">Indonesia International Applied Science Project Olympiad (I2ASPO)</div>
+      <div class="award-level">Antibacterial Plant Extract Research</div>
+      <div class="award-year">2023</div>
+    </div>
+    <div class="award-card reveal">
+      <div class="award-medal">🥈</div>
+      <div class="award-place intl">2nd Place · International Level</div>
+      <div class="award-name">Global Youth Invention and Innovation Fair (GYIIF)</div>
+      <div class="award-level">First International Achievement</div>
+      <div class="award-year">2023</div>
+    </div>
+    <div class="award-card reveal reveal-d1">
+      <div class="award-medal">🥈</div>
+      <div class="award-place intl">2nd Place · International Level</div>
+      <div class="award-name">Jakarta International Science Fair (JISF)</div>
+      <div class="award-level">Counterfeit Skincare Detection Research</div>
+      <div class="award-year">2024</div>
+    </div>
+    <div class="award-card reveal reveal-d2">
+      <div class="award-medal">🥈</div>
+      <div class="award-place prov">2nd Place · Provincial Level</div>
+      <div class="award-name">Jakarta Madrasah Competition (JMC) — Scientific Research</div>
+      <div class="award-level">ZnO–SiO₂ Environmental Research</div>
+      <div class="award-year">2024</div>
+    </div>
+    <div class="award-card reveal">
+      <div class="award-medal">⭐</div>
+      <div class="award-place" style="color:var(--text-secondary);">Honorable Mention · Regional Level</div>
+      <div class="award-name">Stallion SMAN 5 Pioneering</div>
+      <div class="award-level">Honorable Mention 1 — First Regional Achievement</div>
+      <div class="award-year">2023</div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Skills Dashboard</div>
+    <h2 class="section-title">Competencies & <em style="font-style:italic;">Expertise</em></h2>
+    <p class="section-subtitle">Technical proficiency, research skills, and leadership competencies developed across five years of active competition and scientific work.</p>
+  </div>
+  <div class="skills-layout">
+    <div>
+      <div class="skills-bars reveal">
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name">Academic Writing</span>
+            <span class="skill-pct">90%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="90"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name">Research Methodology</span>
+            <span class="skill-pct">90%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="90"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name">Scientific Research</span>
+            <span class="skill-pct">88%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="88"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name">Leadership & Organization</span>
+            <span class="skill-pct">85%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="85"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name">Presentation & Public Speaking</span>
+            <span class="skill-pct">85%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="85"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name">Data Analysis & R</span>
+            <span class="skill-pct">70%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="70"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name">GIS & Spatial Analysis</span>
+            <span class="skill-pct">40%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="40"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name">Remote Sensing</span>
+            <span class="skill-pct">35%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="35"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name">Python Programming</span>
+            <span class="skill-pct">20%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="20"></div></div>
+        </div>
+      </div>
     </div>
     <div>
-      <div class="section-header reveal">
-        <span class="section-label">Who I Am</span>
-        <h2 class="section-title">About <span class="grad">Me</span></h2>
-        <div class="divider"></div>
-      </div>
-      <div class="about-blocks">
-        <div class="ab-block reveal d1">
-          <h3>Background</h3>
-          <p>A dedicated university student with a deep passion for research, technology, and making meaningful contributions to society. My journey has shaped me into a critical thinker who approaches complex problems with creativity and rigor.</p>
+      <div class="reveal">
+        <div class="competency-title">Competency Overview</div>
+        <div class="comp-grid">
+          <div class="comp-item"><div class="comp-grade">A+</div><div class="comp-label">Research</div></div>
+          <div class="comp-item"><div class="comp-grade">A+</div><div class="comp-label">Academic Writing</div></div>
+          <div class="comp-item"><div class="comp-grade">A</div><div class="comp-label">Leadership</div></div>
+          <div class="comp-item"><div class="comp-grade">A</div><div class="comp-label">Communication</div></div>
+          <div class="comp-item"><div class="comp-grade">A</div><div class="comp-label">Innovation</div></div>
+          <div class="comp-item"><div class="comp-grade">A–</div><div class="comp-label">Proj. Mgmt</div></div>
+          <div class="comp-item"><div class="comp-grade">B+</div><div class="comp-label">Data Analysis</div></div>
+          <div class="comp-item"><div class="comp-grade">B</div><div class="comp-label">Programming</div></div>
         </div>
-        <div class="ab-block reveal d2">
-          <h3>Academic Interests</h3>
-          <p>Geospatial analysis, data science, environmental studies, and interdisciplinary research — especially how technology can solve real-world challenges at scale.</p>
-        </div>
-        <div class="ab-block reveal d3">
-          <h3>Personal Values</h3>
-          <div class="value-chips">
-            <span class="chip">Curiosity</span><span class="chip">Integrity</span><span class="chip">Collaboration</span>
-            <span class="chip">Growth</span><span class="chip">Impact</span><span class="chip">Excellence</span>
+        <div class="research-interests reveal">
+          <h3>Research Interests</h3>
+          <div class="interest-tags">
+            <span class="interest-tag">Food Technology</span>
+            <span class="interest-tag">Functional Foods</span>
+            <span class="interest-tag">Environmental Sustainability</span>
+            <span class="interest-tag">Nanotechnology</span>
+            <span class="interest-tag">Biosensors</span>
+            <span class="interest-tag">Green Chemistry</span>
+            <span class="interest-tag">Renewable Energy</span>
+            <span class="interest-tag">Public Health</span>
+            <span class="interest-tag">Waste Management</span>
           </div>
         </div>
-        <div class="reveal d4">
-          <a href="about.html" class="btn btn-ghost">Read full story <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Photo Gallery</div>
+    <h2 class="section-title">Moments & <em style="font-style:italic;">Memories</em></h2>
+    <p class="section-subtitle">Research, competitions, laboratories, organizations, and conferences — a visual journey.</p>
+  </div>
+  <div class="gallery-filters reveal">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="research">Research</button>
+    <button class="filter-btn" data-filter="lab">Laboratory</button>
+    <button class="filter-btn" data-filter="competition">Competitions</button>
+    <button class="filter-btn" data-filter="award">Awards</button>
+    <button class="filter-btn" data-filter="org">Organizations</button>
+    <button class="filter-btn" data-filter="ipb">IPB University</button>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item" data-cat="research"><i class="fas fa-flask"></i><span>Research Photo</span><div class="gallery-overlay"><i class="fas fa-expand"></i></div></div>
+    <div class="gallery-item" data-cat="lab"><i class="fas fa-microscope"></i><span>Lab Activity</span><div class="gallery-overlay"><i class="fas fa-expand"></i></div></div>
+    <div class="gallery-item" data-cat="competition"><i class="fas fa-trophy"></i><span>Competition</span><div class="gallery-overlay"><i class="fas fa-expand"></i></div></div>
+    <div class="gallery-item" data-cat="award"><i class="fas fa-medal"></i><span>Award Ceremony</span><div class="gallery-overlay"><i class="fas fa-expand"></i></div></div>
+    <div class="gallery-item" data-cat="org"><i class="fas fa-users"></i><span>OSIS / KIR / Pramuka</span><div class="gallery-overlay"><i class="fas fa-expand"></i></div></div>
+    <div class="gallery-item" data-cat="competition"><i class="fas fa-star"></i><span>ISIF 2024</span><div class="gallery-overlay"><i class="fas fa-expand"></i></div></div>
+    <div class="gallery-item" data-cat="competition"><i class="fas fa-star"></i><span>OS2MN 2025</span><div class="gallery-overlay"><i class="fas fa-expand"></i></div></div>
+    <div class="gallery-item" data-cat="competition"><i class="fas fa-star"></i><span>AGRIET IPB 2025</span><div class="gallery-overlay"><i class="fas fa-expand"></i></div></div>
+    <div class="gallery-item" data-cat="lab"><i class="fas fa-atom"></i><span>Lab Work</span><div class="gallery-overlay"><i class="fas fa-expand"></i></div></div>
+    <div class="gallery-item" data-cat="ipb"><i class="fas fa-university"></i><span>IPB University</span><div class="gallery-overlay"><i class="fas fa-expand"></i></div></div>
+    <div class="gallery-item" data-cat="award"><i class="fas fa-award"></i><span>Medal Collection</span><div class="gallery-overlay"><i class="fas fa-expand"></i></div></div>
+    <div class="gallery-item" data-cat="research"><i class="fas fa-scroll"></i><span>Research Presentation</span><div class="gallery-overlay"><i class="fas fa-expand"></i></div></div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section id="roadmap">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Future Roadmap</div>
+    <h2 class="section-title">The <em style="font-style:italic;">Path Ahead</em></h2>
+    <p class="section-subtitle">A structured vision from undergraduate excellence to doctoral research and global scientific impact.</p>
+  </div>
+  <div class="roadmap-grid">
+    <div class="roadmap-phase short reveal">
+      <div class="phase-label">Short-Term</div>
+      <div class="phase-period">2026–2028</div>
+      <div class="phase-items">
+        <div class="phase-item"><i class="fas fa-check"></i><span>Excel in Food Technology studies at IPB University</span></div>
+        <div class="phase-item"><i class="fas fa-check"></i><span>Publish first scientific paper in indexed journal</span></div>
+        <div class="phase-item"><i class="fas fa-check"></i><span>National & international research competitions</span></div>
+        <div class="phase-item"><i class="fas fa-check"></i><span>Laboratory research assistant experience</span></div>
+        <div class="phase-item"><i class="fas fa-check"></i><span>Present at scientific conferences</span></div>
+      </div>
+    </div>
+    <div class="roadmap-phase medium reveal reveal-d1">
+      <div class="phase-label">Medium-Term</div>
+      <div class="phase-period">2028–2031</div>
+      <div class="phase-items">
+        <div class="phase-item"><i class="fas fa-check"></i><span>Master's Degree in Food Technology or related field</span></div>
+        <div class="phase-item"><i class="fas fa-check"></i><span>Publish indexed journal papers (Scopus)</span></div>
+        <div class="phase-item"><i class="fas fa-check"></i><span>Lead interdisciplinary research projects</span></div>
+        <div class="phase-item"><i class="fas fa-check"></i><span>International academic collaborations</span></div>
+        <div class="phase-item"><i class="fas fa-check"></i><span>Academic exchange programs</span></div>
+      </div>
+    </div>
+    <div class="roadmap-phase long reveal reveal-d2">
+      <div class="phase-label">Long-Term</div>
+      <div class="phase-period">2031+</div>
+      <div class="phase-items">
+        <div class="phase-item"><i class="fas fa-check"></i><span>PhD & academic research career</span></div>
+        <div class="phase-item"><i class="fas fa-check"></i><span>Science-based innovation leadership</span></div>
+        <div class="phase-item"><i class="fas fa-check"></i><span>Found a research & innovation enterprise</span></div>
+        <div class="phase-item"><i class="fas fa-check"></i><span>Global scientific impact in food, health & environment</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Get in Touch</div>
+    <h2 class="section-title">Let's <em style="font-style:italic;">Connect</em></h2>
+  </div>
+  <div class="contact-layout">
+    <div>
+      <div class="contact-glass reveal">
+        <div class="contact-glass-title">Open to Collaboration</div>
+        <div class="contact-glass-sub">I'm always open to discussing research, innovation, academic collaborations, competitions, conferences, and opportunities that create meaningful impact. Whether you're a fellow student, researcher, educator, or industry professional — I'd be happy to connect.</div>
+        <div class="interest-areas">
+          <span class="interest-area">Scientific Research</span>
+          <span class="interest-area">Sustainability</span>
+          <span class="interest-area">Food Technology</span>
+          <span class="interest-area">Competitions</span>
+          <span class="interest-area">Conferences</span>
+          <span class="interest-area">Innovation</span>
+          <span class="interest-area">Collaboration</span>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ FEATURED PROJECTS ═══ -->
-<section class="section">
-  <div class="section-header reveal">
-    <span class="section-label">Featured Work</span>
-    <h2 class="section-title">Selected <span class="grad">Projects</span></h2>
-    <div class="divider"></div>
-    <p class="section-sub">A curated selection of academic and personal projects.</p>
-  </div>
-  <div class="grid-auto">
-    <div class="card proj-card reveal">
-      <div class="proj-thumb"><i class="fas fa-map-marked-alt"></i><span class="proj-badge">🥇 Best Project</span></div>
-      <div class="proj-body">
-        <h3 class="proj-title">Urban Heat Island Mapping</h3>
-        <p class="proj-desc">Spatial analysis of urban heat distribution using satellite imagery and GIS tools.</p>
-        <div class="proj-tags"><span class="tag">GIS</span><span class="tag">Python</span><span class="tag">Remote Sensing</span></div>
-        <p class="proj-impact">Published in regional environmental journal</p>
-        <div class="proj-footer"><a href="projects.html" class="btn btn-outline btn-sm">View Details</a></div>
+      <div class="contact-links reveal reveal-d1">
+        <a class="contact-link-item" href="mailto:mahesvarawyne@email.com">
+          <div class="contact-link-icon"><i class="fas fa-envelope"></i></div>
+          <div class="contact-link-meta">
+            <span class="contact-link-label">Email</span>
+            <span class="contact-link-val">mahesvarawyne@email.com</span>
+          </div>
+        </a>
+        <a class="contact-link-item" href="https://instagram.com/ulilalbb6_" target="_blank">
+          <div class="contact-link-icon"><i class="fab fa-instagram"></i></div>
+          <div class="contact-link-meta">
+            <span class="contact-link-label">Instagram</span>
+            <span class="contact-link-val">@ulilalbb6_</span>
+          </div>
+        </a>
+        <a class="contact-link-item" href="https://linkedin.com/in/blmbuatakun" target="_blank">
+          <div class="contact-link-icon"><i class="fab fa-linkedin-in"></i></div>
+          <div class="contact-link-meta">
+            <span class="contact-link-label">LinkedIn</span>
+            <span class="contact-link-val">linkedin.com/in/blmbuatakun</span>
+          </div>
+        </a>
+        <a class="contact-link-item" href="https://github.com/blmbuatakun" target="_blank">
+          <div class="contact-link-icon"><i class="fab fa-github"></i></div>
+          <div class="contact-link-meta">
+            <span class="contact-link-label">GitHub</span>
+            <span class="contact-link-val">github.com/blmbuatakun</span>
+          </div>
+        </a>
       </div>
     </div>
-    <div class="card proj-card reveal d1">
-      <div class="proj-thumb" style="background:linear-gradient(135deg,#0D2240,#111827)"><i class="fas fa-database"></i><span class="proj-badge">Featured</span></div>
-      <div class="proj-body">
-        <h3 class="proj-title">Community Water Quality Dashboard</h3>
-        <p class="proj-desc">Real-time monitoring system for rural water access points using IoT sensors.</p>
-        <div class="proj-tags"><span class="tag">IoT</span><span class="tag">JavaScript</span><span class="tag">Data Viz</span></div>
-        <p class="proj-impact">Deployed in 3 villages, serving 2,000+ residents</p>
-        <div class="proj-footer"><a href="projects.html" class="btn btn-outline btn-sm">View Details</a></div>
-      </div>
-    </div>
-    <div class="card proj-card reveal d2">
-      <div class="proj-thumb" style="background:linear-gradient(135deg,#1A0D30,#111827)"><i class="fas fa-chart-line"></i></div>
-      <div class="proj-body">
-        <h3 class="proj-title">Deforestation Trend Analysis</h3>
-        <p class="proj-desc">Longitudinal study analyzing forest cover change using multi-temporal satellite data and ML.</p>
-        <div class="proj-tags"><span class="tag">R</span><span class="tag">ML</span><span class="tag">QGIS</span></div>
-        <p class="proj-impact">Presented at national environmental conference</p>
-        <div class="proj-footer"><a href="projects.html" class="btn btn-outline btn-sm">View Details</a></div>
-      </div>
-    </div>
-  </div>
-  <div class="reveal" style="text-align:center; margin-top:3rem;">
-    <a href="projects.html" class="btn btn-outline"><i class="fas fa-layer-group"></i> View All Projects</a>
-  </div>
-</section>
-
-<!-- ═══ JOURNEY TIMELINE ═══ -->
-<section class="section section-alt">
-  <div class="section-header reveal" style="text-align:center;">
-    <span class="section-label">My Story</span>
-    <h2 class="section-title">Life <span class="grad">Timeline</span></h2>
-    <div class="divider centered"></div>
-  </div>
-  <div class="tl-wrap">
-    <div class="tl-item reveal">
-      <div class="tl-content"><div class="tl-year">Early Years</div><div class="tl-title">Childhood</div><p class="tl-desc">Born with a deep sense of wonder. Early years filled with books, nature, and first sparks of curiosity.</p></div>
-      <div class="tl-mid"><div class="tl-dot"><i class="fas fa-baby"></i></div></div>
-      <div class="tl-empty"></div>
-    </div>
-    <div class="tl-item reveal d1">
-      <div class="tl-empty"></div>
-      <div class="tl-mid"><div class="tl-dot"><i class="fas fa-pencil-alt"></i></div></div>
-      <div class="tl-content"><div class="tl-year">2010 – 2016</div><div class="tl-title">Elementary School</div><p class="tl-desc">Discovered love for science and math. First academic competitions, building foundational skills.</p></div>
-    </div>
-    <div class="tl-item reveal d2">
-      <div class="tl-content"><div class="tl-year">2016 – 2019</div><div class="tl-title">Junior High School</div><p class="tl-desc">Began exploring technology and research. Won first regional competition, discovered passion for geography.</p></div>
-      <div class="tl-mid"><div class="tl-dot"><i class="fas fa-flask"></i></div></div>
-      <div class="tl-empty"></div>
-    </div>
-    <div class="tl-item reveal d3">
-      <div class="tl-empty"></div>
-      <div class="tl-mid"><div class="tl-dot"><i class="fas fa-graduation-cap"></i></div></div>
-      <div class="tl-content"><div class="tl-year">2019 – 2022</div><div class="tl-title">Senior High School</div><p class="tl-desc">Led student organizations, conducted independent research, published first paper, earned national recognition.</p></div>
-    </div>
-    <div class="tl-item reveal d4">
-      <div class="tl-content"><div class="tl-year">2022 – Present</div><div class="tl-title">University</div><p class="tl-desc">Pursuing higher education with full dedication. Engaged in research labs, international collaborations, and impactful projects.</p></div>
-      <div class="tl-mid"><div class="tl-dot" style="border-color:var(--accent-gold);box-shadow:0 0 18px rgba(240,192,96,0.4)"><i class="fas fa-star" style="color:var(--accent-gold)"></i></div></div>
-      <div class="tl-empty"></div>
-    </div>
-  </div>
-  <div style="text-align:center; margin-top:3rem;" class="reveal">
-    <a href="about.html" class="btn btn-outline"><i class="fas fa-user"></i> Full Journey on About Page</a>
-  </div>
-</section>
-
-<!-- ═══ FUTURE GOALS ═══ -->
-<section class="section">
-  <div class="section-header reveal">
-    <span class="section-label">Looking Ahead</span>
-    <h2 class="section-title">Future <span class="grad">Roadmap</span></h2>
-    <div class="divider"></div>
-  </div>
-  <div class="roadmap">
-    <div class="rm-row reveal">
-      <div class="rm-phase"><div class="rm-phase-label">Short-term</div><div class="rm-phase-year grad">2024–25</div></div>
-      <div class="rm-items">
-        <div class="rm-item"><i class="fas fa-chevron-right"></i><div><div class="rm-title">Complete Thesis Research</div><div class="rm-sub">Finalize ML flood prediction model with publishable results</div></div></div>
-        <div class="rm-item"><i class="fas fa-chevron-right"></i><div><div class="rm-title">International Conference</div><div class="rm-sub">Present research at symposium in Asia-Pacific region</div></div></div>
-      </div>
-    </div>
-    <div class="rm-row reveal d1">
-      <div class="rm-phase"><div class="rm-phase-label">Medium-term</div><div class="rm-phase-year grad">2025–27</div></div>
-      <div class="rm-items">
-        <div class="rm-item"><i class="fas fa-chevron-right"></i><div><div class="rm-title">Graduate School (Master's)</div><div class="rm-sub">Pursue graduate studies at a leading research university</div></div></div>
-        <div class="rm-item"><i class="fas fa-chevron-right"></i><div><div class="rm-title">Publish Indexed Journal Paper</div><div class="rm-sub">Contribute to Scopus/WoS indexed publication</div></div></div>
-      </div>
-    </div>
-    <div class="rm-row reveal d2">
-      <div class="rm-phase"><div class="rm-phase-label">Long-term</div><div class="rm-phase-year grad">2027+</div></div>
-      <div class="rm-items">
-        <div class="rm-item"><i class="fas fa-chevron-right"></i><div><div class="rm-title">PhD & Academic Career</div><div class="rm-sub">Become a researcher contributing to sustainable development</div></div></div>
-        <div class="rm-item"><i class="fas fa-chevron-right"></i><div><div class="rm-title">Found a Social Impact Startup</div><div class="rm-sub">Build technology for environmental monitoring in developing regions</div></div></div>
+    <div class="reveal reveal-d2">
+      <div class="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Your Name</label>
+            <input class="form-input" type="text" placeholder="Full Name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input class="form-input" type="email" placeholder="your@email.com">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Subject</label>
+          <input class="form-input" type="text" placeholder="Research collaboration, invitation, etc.">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" placeholder="Tell me about your research interest, collaboration proposal, or any other topic you'd like to discuss…"></textarea>
+        </div>
+        <button class="btn btn-gold" onclick="handleFormSubmit(this)" style="width:100%;justify-content:center;">
+          <i class="fas fa-paper-plane"></i> Send Message
+        </button>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ FOOTER ═══ -->
-<footer id="footer">
-  <div class="footer-grid">
-    <div><div class="footer-logo">Olympus Zero</div><div class="footer-copy">© 2024 · All rights reserved</div></div>
-    <nav class="footer-nav">
-      <a href="index.html">Home</a><a href="about.html">About</a>
-      <a href="projects.html">Projects</a><a href="achievements.html">Achievements</a>
-      <a href="gallery.html">Gallery</a><a href="contact.html">Contact</a>
-    </nav>
-    <div class="footer-socials">
-      <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-      <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
-      <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-      <a href="contact.html" class="social-icon"><i class="fas fa-envelope"></i></a>
-    </div>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Ulil <span>Albab</span></div>
+  <div class="footer-socials">
+    <a href="https://linkedin.com/in/blmbuatakun" target="_blank" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+    <a href="https://github.com/blmbuatakun" target="_blank" class="social-btn"><i class="fab fa-github"></i></a>
+    <a href="https://instagram.com/ulilalbb6_" target="_blank" class="social-btn"><i class="fab fa-instagram"></i></a>
+    <a href="mailto:mahesvarawyne@email.com" class="social-btn"><i class="fas fa-envelope"></i></a>
   </div>
+  <p class="footer-copy">Mukhammad Ulil Albab · IPB University · Food Technology · 2026</p>
 </footer>
 
-</div><!-- end page-wrapper -->
-<button id="back-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
-<div id="toast"></div>
-
-<script src="js/script.js"></script>
+<!-- JAVASCRIPT -->
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    initConstellation('c-canvas', 'hero');
+// LOADER
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+  }, 2000);
+});
+
+// PARTICLE CANVAS
+const canvas = document.getElementById('particle-canvas');
+const ctx = canvas.getContext('2d');
+let mouse = { x: null, y: null };
+let particles = [];
+const N = 80;
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+function initParticles() {
+  particles = [];
+  for (let i = 0; i < N; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.2 + 0.3,
+      vx: (Math.random() - 0.5) * 0.25,
+      vy: (Math.random() - 0.5) * 0.25,
+      alpha: Math.random() * 0.5 + 0.1,
+      color: Math.random() > 0.6 ? '212,160,23' : '16,60,58',
+    });
+  }
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const d = Math.sqrt(dx * dx + dy * dy);
+      if (d < 110) {
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(16,60,58,${(1 - d / 110) * 0.12})`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+    if (mouse.x) {
+      const dx = particles[i].x - mouse.x;
+      const dy = particles[i].y - mouse.y;
+      const d = Math.sqrt(dx * dx + dy * dy);
+      if (d < 160) {
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(mouse.x, mouse.y);
+        ctx.strokeStyle = `rgba(212,160,23,${(1 - d / 160) * 0.25})`;
+        ctx.lineWidth = 0.6;
+        ctx.stroke();
+      }
+    }
+    ctx.beginPath();
+    ctx.arc(particles[i].x, particles[i].y, particles[i].r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(${particles[i].color},${particles[i].alpha})`;
+    ctx.fill();
+    particles[i].x += particles[i].vx;
+    particles[i].y += particles[i].vy;
+    if (particles[i].x < 0 || particles[i].x > canvas.width) particles[i].vx *= -1;
+    if (particles[i].y < 0 || particles[i].y > canvas.height) particles[i].vy *= -1;
+  }
+  requestAnimationFrame(draw);
+}
+
+document.getElementById('hero').addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+document.getElementById('hero').addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+window.addEventListener('resize', () => { resize(); initParticles(); });
+resize(); initParticles(); draw();
+
+// SCROLL PROGRESS + NAV
+window.addEventListener('scroll', () => {
+  const st = document.documentElement.scrollTop;
+  const sh = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  document.getElementById('scroll-progress').style.width = (st / sh * 100) + '%';
+  document.getElementById('navbar').classList.toggle('scrolled', st > 50);
+  document.getElementById('back-top').classList.toggle('visible', st > 400);
+});
+
+document.getElementById('back-top').addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// REVEAL
+const revealEls = document.querySelectorAll('.reveal');
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+revealEls.forEach(el => revealObs.observe(el));
+
+// COUNTERS
+function animateCount(el, target) {
+  let cur = 0;
+  const step = Math.ceil(target / 50);
+  const interval = setInterval(() => {
+    cur = Math.min(cur + step, target);
+    el.textContent = cur;
+    if (cur >= target) clearInterval(interval);
+  }, 28);
+}
+const counterObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('[data-count]').forEach(n => animateCount(n, parseInt(n.dataset.count)));
+      counterObs.unobserve(e.target);
+    }
   });
+}, { threshold: 0.3 });
+document.querySelectorAll('.counters-strip, #hero .hero-stats').forEach(el => counterObs.observe(el));
+
+// SKILL BARS
+const skillObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.skill-fill').forEach(bar => { bar.style.width = bar.dataset.pct + '%'; });
+      skillObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.2 });
+const skillsSection = document.getElementById('skills');
+if (skillsSection) skillObs.observe(skillsSection);
+
+// HAMBURGER
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('active');
+  mobileMenu.classList.toggle('open');
+});
+document.querySelectorAll('.mobile-link').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    mobileMenu.classList.remove('open');
+  });
+});
+
+// GALLERY FILTER
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      item.style.display = filter === 'all' || item.dataset.cat === filter ? 'flex' : 'none';
+    });
+  });
+});
+
+// CONTACT FORM
+function handleFormSubmit(btn) {
+  btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+  btn.style.background = 'linear-gradient(135deg, #10B981, #059669)';
+  setTimeout(() => {
+    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+    btn.style.background = '';
+  }, 3000);
+}
+
+// SMOOTH SCROLL
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
 </script>
 </body>
 </html>
